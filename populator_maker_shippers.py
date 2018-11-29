@@ -95,9 +95,10 @@ customers_array = [
 ]
 
 
-for cu in customers_array:
-    print('cu{} = Customer(customername="{}", contactname="{}", address="{}", city="{}", postalcode="{}", country="{}")\ndb.session.add(cu{})'
-        .format(customers_array.index(cu), cu[0], cu[1], cu[2], cu[3], cu[4], cu[5], customers_array.index(cu)))
+for u in customers_array:
+    email = u[0].replace(" ", "") + "@example.com"
+    print('u{} = User(username="{}", custumername="{}", email="{}", address="{}", city="{}", postalcode="{}", country="{}")\ndb.session.add(u{})'
+        .format(customers_array.index(u), u[1], u[0], email, u[2], u[3], u[4], u[5], customers_array.index(u)))
 print('db.session.commit()\n\n\n\n\n\n')
 
 
