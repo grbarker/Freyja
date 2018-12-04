@@ -85,7 +85,7 @@ customers_array = [
     ("Trail's Head Gourmet Provisioners","Helvetius Nagy","722 DaVinci Blvd.","Kirkland","98034","USA"),
     ("Vaffeljernet","Palle Ibsen","Smagsløget 45","Århus","8200","Denmark"),
     ("Victuailles en stock","Mary Saveley","2, rue du Commerce","Lyon","69004","France"),
-    ("Vins et alcools Chevalier","Paul Henriot","59 rue de l\'Abbaye","Reims","51100","France"),
+    ("Vins et alcools Chevalier","Paul Henriot","59 rue de l'Abbaye","Reims","51100","France"),
     ("Die Wandernde Kuh","Rita Müller","Adenauerallee 900","Stuttgart","70563","Germany"),
     ("Wartian Herkku","Pirkko Koskitalo","Torikatu 38","Oulu","90110","Finland"),
     ("Wellington Importadora","Paula Parente","Rua do Mercado, 12","Resende","08737-363","Brazil"),
@@ -96,11 +96,34 @@ customers_array = [
 
 
 for u in customers_array:
+    #Separate the names data into lastname, middlename, firstname
+    name_list = u[1].split()
+    firstname = name_list[0]
+    #Make up usernames from the given contact names
+    username = u[1].replace(" ", "")
+    #Make up dummy emails from the given customer names
     email = u[0].replace(" ", "") + "@example.com"
-    print('u{} = User(username="{}", custumername="{}", email="{}", address="{}", city="{}", postalcode="{}", country="{}")\ndb.session.add(u{})'
-        .format(customers_array.index(u), u[1], u[0], email, u[2], u[3], u[4], u[5], customers_array.index(u)))
+    if len(name_list) > 2:
+        middlename = name_list[1]
+        lastname = name_list[2]
+        middlenameinsert = 'middlename="' + middlename +  '"'
+        lastnameinsert = 'lastname="' + lastname +  '"'
+    else:
+        middlename = None
+        lastname = None
+        middlenameinsert = 'middlename=None'
+        lastnameinsert = 'lastname=None'
+    print('''u{} = User(
+        username="{}", customername="{}", {}, {},
+        firstname="{}", email="{}", address="{}", city="{}", postalcode="{}",
+        country="{}")\ndb.session.add(u{})'''
+        .format(
+            customers_array.index(u),
+            username, u[0], lastnameinsert, middlenameinsert,
+            firstname, email, u[2], u[3], u[4],
+            u[5], customers_array.index(u))
+        )
 print('db.session.commit()\n\n\n\n\n\n')
-
 
 
 
