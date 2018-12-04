@@ -5,7 +5,8 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from hashlib import md5
 from flask_login import UserMixin
 from datetime import datetime
-from app import db, login
+from time import time
+from app import app, db, login
 
 
 ##Pulled from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers
@@ -20,6 +21,7 @@ class User(UserMixin, db.Model):
     username = db.Column(db.String(64), index=True, unique=True)
     customername = db.Column(db.String(255), index=True)
     lastname = db.Column(db.String(255), index=True)
+    middlename = db.Column(db.String(255))
     firstname = db.Column(db.String(255), index=True)
     email = db.Column(db.String(120), index=True, unique=True)
     password_hash = db.Column(db.String(128))
@@ -72,6 +74,44 @@ class User(UserMixin, db.Model):
         own = Post.query.filter_by(user_id=self.id)
         return followed.union(own).order_by(Post.timestamp.desc())
 
+    ##next 2 pulled from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-x-email-support
+    def get_reset_password_token(self, expires_in=600):
+            return jwt.encode(
+                {'reset_password': self.id, 'exp': time() + expires_in},
+                app.config['SECRET_KEY'], algorithm='HS256').decode('utf-8')
+
+    @staticmethod
+    def verify_reset_password_token(token):
+        try:
+            id = jwt.decode(token, app.config['SECRET_KEY'],
+                            algorithms=['HS256'])['reset_password']
+        except:
+            return
+        return User.query.get(id)
+
+    def to_dict(self, include_email=False):
+        data = {
+            'id': self.id,
+            'username': self.username,
+            'lastname': self.lastname,
+            'middlename': self.middlename,
+            'firstname': self.firstname,
+            'last_seen': self.last_seen.isoformat() + 'Z',
+            'about_me': self.about_me,
+            'address': self.address,
+            'city': self.city,
+            'country': self.country,
+            'post_count': self.posts.count(),
+            'follower_count': self.followers.count(),
+            'followed_count': self.followed.count(),
+            '_links': {
+                'avatar': self.avatar(128)
+            }
+        }
+        if include_email:
+            data['email'] = self.email
+        return data
+
 
 class Post(db.Model):
     body = db.Column(db.String(140))
@@ -99,7 +139,7 @@ class Employee(db.Model):
     notes = db.Column(db.Text(1000))
 
     def __repr__(self):
-        return '<Employee {}>'.format(self.username)
+        return '<Employee {}>'.format(self.id)
 
     def set_password(self, password):
         self.password_hash = generate_password_hash(password)
