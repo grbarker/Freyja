@@ -167,6 +167,17 @@ class OrderDetail(db.Model):
     product_id = db.Column(db.Integer, db.ForeignKey('product.id'))
     quantity = db.Column(db.Integer)
 
+    def to_dict(self):
+        data = {
+            'id': self.id,
+            'order_id': self.order_id,
+            'product_id': self.product_id,
+            'order': self.order,
+            'product': self.product,
+            'quantity': self.quantity
+        }
+        return data
+
 
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
