@@ -3,6 +3,8 @@ from config import Config
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_mail import Mail
+from flask_bootstrap import Bootstrap
 import logging
 from logging.handlers import SMTPHandler
 
@@ -12,6 +14,17 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 login = LoginManager(app)
 login.login_view = 'login'
+app.config.update(
+    DEBUG=True,
+    #EMAIL SETTINGS
+    MAIL_SERVER='smtp.gmail.com',
+    MAIL_PORT=465,
+    MAIL_USE_SSL=True,
+    MAIL_USERNAME = 'flaskapperrors@gmail.com',
+    MAIL_PASSWORD = 'wgswtrq9gs'
+    )
+mail = Mail(app)
+bootstrap = Bootstrap(app)
 
 from app import routes, models, errors
 
