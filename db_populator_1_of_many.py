@@ -1,196 +1,466 @@
 from datetime import datetime
 from app import db
-from app.models import Customer, Category, Supplier, Shipper, Employee
+from app.models import User, Category, Supplier, Shipper, Employee
 
 
 
-
-
-
-cu0 = Customer(customername="Alfreds Futterkiste", contactname="Maria Anders", address="Obere Str. 57", city="Berlin", postalcode="12209", country="Germany")
-db.session.add(cu0)
-cu1 = Customer(customername="Ana Trujillo Emparedados y helados", contactname="Ana Trujillo", address="Avda. de la Constitución 2222", city="México D.F.", postalcode="05021", country="Mexico")
-db.session.add(cu1)
-cu2 = Customer(customername="Antonio Moreno Taquería", contactname="Antonio Moreno", address="Mataderos 2312", city="México D.F.", postalcode="05023", country="Mexico")
-db.session.add(cu2)
-cu3 = Customer(customername="Around the Horn", contactname="Thomas Hardy", address="120 Hanover Sq.", city="London", postalcode="WA1 1DP", country="UK")
-db.session.add(cu3)
-cu4 = Customer(customername="Berglunds snabbköp", contactname="Christina Berglund", address="Berguvsvägen 8", city="Luleå", postalcode="S-958 22", country="Sweden")
-db.session.add(cu4)
-cu5 = Customer(customername="Blauer See Delikatessen", contactname="Hanna Moos", address="Forsterstr. 57", city="Mannheim", postalcode="68306", country="Germany")
-db.session.add(cu5)
-cu6 = Customer(customername="Blondel père et fils", contactname="Frédérique Citeaux", address="24, place Kléber", city="Strasbourg", postalcode="67000", country="France")
-db.session.add(cu6)
-cu7 = Customer(customername="Bólido Comidas preparadas", contactname="Martín Sommer", address="C/ Araquil, 67", city="Madrid", postalcode="28023", country="Spain")
-db.session.add(cu7)
-cu8 = Customer(customername="Bon app'", contactname="Laurence Lebihans", address="12, rue des Bouchers", city="Marseille", postalcode="13008", country="France")
-db.session.add(cu8)
-cu9 = Customer(customername="Bottom-Dollar Marketse", contactname="Elizabeth Lincoln", address="23 Tsawassen Blvd.", city="Tsawassen", postalcode="T2F 8M4", country="Canada")
-db.session.add(cu9)
-cu10 = Customer(customername="B's Beverages", contactname="Victoria Ashworth", address="Fauntleroy Circus", city="London", postalcode="EC2 5NT", country="UK")
-db.session.add(cu10)
-cu11 = Customer(customername="Cactus Comidas para llevar", contactname="Patricio Simpson", address="Cerrito 333", city="Buenos Aires", postalcode="1010", country="Argentina")
-db.session.add(cu11)
-cu12 = Customer(customername="Centro comercial Moctezuma", contactname="Francisco Chang", address="Sierras de Granada 9993", city="México D.F.", postalcode="05022", country="Mexico")
-db.session.add(cu12)
-cu13 = Customer(customername="Chop-suey Chinese", contactname="Yang Wang", address="Hauptstr. 29", city="Bern", postalcode="3012", country="Switzerland")
-db.session.add(cu13)
-cu14 = Customer(customername="Comércio Mineiro", contactname="Pedro Afonso", address="Av. dos Lusíadas, 23", city="São Paulo", postalcode="05432-043", country="Brazil")
-db.session.add(cu14)
-cu15 = Customer(customername="Consolidated Holdings", contactname="Elizabeth Brown", address="Berkeley Gardens 12 Brewery ", city="London", postalcode="WX1 6LT", country="UK")
-db.session.add(cu15)
-cu16 = Customer(customername="Drachenblut Delikatessend", contactname="Sven Ottlieb", address="Walserweg 21", city="Aachen", postalcode="52066", country="Germany")
-db.session.add(cu16)
-cu17 = Customer(customername="Du monde entier", contactname="Janine Labrune", address="67, rue des Cinquante Otages", city="Nantes", postalcode="44000", country="France")
-db.session.add(cu17)
-cu18 = Customer(customername="Eastern Connection", contactname="Ann Devon", address="35 King George", city="London", postalcode="WX3 6FW", country="UK")
-db.session.add(cu18)
-cu19 = Customer(customername="Ernst Handel", contactname="Roland Mendel", address="Kirchgasse 6", city="Graz", postalcode="8010", country="Austria")
-db.session.add(cu19)
-cu20 = Customer(customername="Familia Arquibaldo", contactname="Aria Cruz", address="Rua Orós, 92", city="São Paulo", postalcode="05442-030", country="Brazil")
-db.session.add(cu20)
-cu21 = Customer(customername="FISSA Fabrica Inter. Salchichas S.A.", contactname="Diego Roel", address="C/ Moralzarzal, 86", city="Madrid", postalcode="28034", country="Spain")
-db.session.add(cu21)
-cu22 = Customer(customername="Folies gourmandes", contactname="Martine Rancé", address="184, chaussée de Tournai", city="Lille", postalcode="59000", country="France")
-db.session.add(cu22)
-cu23 = Customer(customername="Folk och fä HB", contactname="Maria Larsson", address="Åkergatan 24", city="Bräcke", postalcode="S-844 67", country="Sweden")
-db.session.add(cu23)
-cu24 = Customer(customername="Frankenversand", contactname="Peter Franken", address="Berliner Platz 43", city="München", postalcode="80805", country="Germany")
-db.session.add(cu24)
-cu25 = Customer(customername="France restauration", contactname="Carine Schmitt", address="54, rue Royale", city="Nantes", postalcode="44000", country="France")
-db.session.add(cu25)
-cu26 = Customer(customername="Franchi S.p.A.", contactname="Paolo Accorti", address="Via Monte Bianco 34", city="Torino", postalcode="10100", country="Italy")
-db.session.add(cu26)
-cu27 = Customer(customername="Furia Bacalhau e Frutos do Mar", contactname="Lino Rodriguez ", address="Jardim das rosas n. 32", city="Lisboa", postalcode="1675", country="Portugal")
-db.session.add(cu27)
-cu28 = Customer(customername="Galería del gastrónomo", contactname="Eduardo Saavedra", address="Rambla de Cataluña, 23", city="Barcelona", postalcode="08022", country="Spain")
-db.session.add(cu28)
-cu29 = Customer(customername="Godos Cocina Típica", contactname="José Pedro Freyre", address="C/ Romero, 33", city="Sevilla", postalcode="41101", country="Spain")
-db.session.add(cu29)
-cu30 = Customer(customername="Gourmet Lanchonetes", contactname="André Fonseca", address="Av. Brasil, 442", city="Campinas", postalcode="04876-786", country="Brazil")
-db.session.add(cu30)
-cu31 = Customer(customername="Great Lakes Food Market", contactname="Howard Snyder", address="2732 Baker Blvd.", city="Eugene", postalcode="97403", country="USA")
-db.session.add(cu31)
-cu32 = Customer(customername="GROSELLA-Restaurante", contactname="Manuel Pereira", address="5ª Ave. Los Palos Grandes", city="Caracas", postalcode="1081", country="Venezuela")
-db.session.add(cu32)
-cu33 = Customer(customername="Hanari Carnes", contactname="Mario Pontes", address="Rua do Paço, 67", city="Rio de Janeiro", postalcode="05454-876", country="Brazil")
-db.session.add(cu33)
-cu34 = Customer(customername="HILARIÓN-Abastos", contactname="Carlos Hernández", address="Carrera 22 con Ave. Carlos Soublette #8-35", city="San Cristóbal", postalcode="5022", country="Venezuela")
-db.session.add(cu34)
-cu35 = Customer(customername="Hungry Coyote Import Store", contactname="Yoshi Latimer", address="City Center Plaza 516 Main St.", city="Elgin", postalcode="97827", country="USA")
-db.session.add(cu35)
-cu36 = Customer(customername="Hungry Owl All-Night Grocers", contactname="Patricia McKenna", address="8 Johnstown Road", city="Cork", postalcode="", country="Ireland")
-db.session.add(cu36)
-cu37 = Customer(customername="Island Trading", contactname="Helen Bennett", address="Garden House Crowther Way", city="Cowes", postalcode="PO31 7PJ", country="UK")
-db.session.add(cu37)
-cu38 = Customer(customername="Königlich Essen", contactname="Philip Cramer", address="Maubelstr. 90", city="Brandenburg", postalcode="14776", country="Germany")
-db.session.add(cu38)
-cu39 = Customer(customername="La corne d'abondance", contactname="Daniel Tonini", address="67, avenue de l'Europe", city="Versailles", postalcode="78000", country="France")
-db.session.add(cu39)
-cu40 = Customer(customername="La maison d'Asie", contactname="Annette Roulet", address="1 rue Alsace-Lorraine", city="Toulouse", postalcode="31000", country="France")
-db.session.add(cu40)
-cu41 = Customer(customername="Laughing Bacchus Wine Cellars", contactname="Yoshi Tannamuri", address="1900 Oak St.", city="Vancouver", postalcode="V3F 2K1", country="Canada")
-db.session.add(cu41)
-cu42 = Customer(customername="Lazy K Kountry Store", contactname="John Steel", address="12 Orchestra Terrace", city="Walla Walla", postalcode="99362", country="USA")
-db.session.add(cu42)
-cu43 = Customer(customername="Lehmanns Marktstand", contactname="Renate Messner", address="Magazinweg 7", city="Frankfurt a.M. ", postalcode="60528", country="Germany")
-db.session.add(cu43)
-cu44 = Customer(customername="Let's Stop N Shop", contactname="Jaime Yorres", address="87 Polk St. Suite 5", city="San Francisco", postalcode="94117", country="USA")
-db.session.add(cu44)
-cu45 = Customer(customername="LILA-Supermercado", contactname="Carlos González", address="Carrera 52 con Ave. Bolívar #65-98 Llano Largo", city="Barquisimeto", postalcode="3508", country="Venezuela")
-db.session.add(cu45)
-cu46 = Customer(customername="LINO-Delicateses", contactname="Felipe Izquierdo", address="Ave. 5 de Mayo Porlamar", city="I. de Margarita", postalcode="4980", country="Venezuela")
-db.session.add(cu46)
-cu47 = Customer(customername="Lonesome Pine Restaurant", contactname="Fran Wilson", address="89 Chiaroscuro Rd.", city="Portland", postalcode="97219", country="USA")
-db.session.add(cu47)
-cu48 = Customer(customername="Magazzini Alimentari Riuniti", contactname="Giovanni Rovelli", address="Via Ludovico il Moro 22", city="Bergamo", postalcode="24100", country="Italy")
-db.session.add(cu48)
-cu49 = Customer(customername="Maison Dewey", contactname="Catherine Dewey", address="Rue Joseph-Bens 532", city="Bruxelles", postalcode="B-1180", country="Belgium")
-db.session.add(cu49)
-cu50 = Customer(customername="Mère Paillarde", contactname="Jean Fresnière", address="43 rue St. Laurent", city="Montréal", postalcode="H1J 1C3", country="Canada")
-db.session.add(cu50)
-cu51 = Customer(customername="Morgenstern Gesundkost", contactname="Alexander Feuer", address="Heerstr. 22", city="Leipzig", postalcode="04179", country="Germany")
-db.session.add(cu51)
-cu52 = Customer(customername="North/South", contactname="Simon Crowther", address="South House 300 Queensbridge", city="London", postalcode="SW7 1RZ", country="UK")
-db.session.add(cu52)
-cu53 = Customer(customername="Océano Atlántico Ltda.", contactname="Yvonne Moncada", address="Ing. Gustavo Moncada 8585 Piso 20-A", city="Buenos Aires", postalcode="1010", country="Argentina")
-db.session.add(cu53)
-cu54 = Customer(customername="Old World Delicatessen", contactname="Rene Phillips", address="2743 Bering St.", city="Anchorage", postalcode="99508", country="USA")
-db.session.add(cu54)
-cu55 = Customer(customername="Ottilies Käseladen", contactname="Henriette Pfalzheim", address="Mehrheimerstr. 369", city="Köln", postalcode="50739", country="Germany")
-db.session.add(cu55)
-cu56 = Customer(customername="Paris spécialités", contactname="Marie Bertrand", address="265, boulevard Charonne", city="Paris", postalcode="75012", country="France")
-db.session.add(cu56)
-cu57 = Customer(customername="Pericles Comidas clásicas", contactname="Guillermo Fernández", address="Calle Dr. Jorge Cash 321", city="México D.F.", postalcode="05033", country="Mexico")
-db.session.add(cu57)
-cu58 = Customer(customername="Piccolo und mehr", contactname="Georg Pipps", address="Geislweg 14", city="Salzburg", postalcode="5020", country="Austria")
-db.session.add(cu58)
-cu59 = Customer(customername="Princesa Isabel Vinhoss", contactname="Isabel de Castro", address="Estrada da saúde n. 58", city="Lisboa", postalcode="1756", country="Portugal")
-db.session.add(cu59)
-cu60 = Customer(customername="Que Delícia", contactname="Bernardo Batista", address="Rua da Panificadora, 12", city="Rio de Janeiro", postalcode="02389-673", country="Brazil")
-db.session.add(cu60)
-cu61 = Customer(customername="Queen Cozinha", contactname="Lúcia Carvalho", address="Alameda dos Canàrios, 891", city="São Paulo", postalcode="05487-020", country="Brazil")
-db.session.add(cu61)
-cu62 = Customer(customername="QUICK-Stop", contactname="Horst Kloss", address="Taucherstraße 10", city="Cunewalde", postalcode="01307", country="Germany")
-db.session.add(cu62)
-cu63 = Customer(customername="Rancho grande", contactname="Sergio Gutiérrez", address="Av. del Libertador 900", city="Buenos Aires", postalcode="1010", country="Argentina")
-db.session.add(cu63)
-cu64 = Customer(customername="Rattlesnake Canyon Grocery", contactname="Paula Wilson", address="2817 Milton Dr.", city="Albuquerque", postalcode="87110", country="USA")
-db.session.add(cu64)
-cu65 = Customer(customername="Reggiani Caseifici", contactname="Maurizio Moroni", address="Strada Provinciale 124", city="Reggio Emilia", postalcode="42100", country="Italy")
-db.session.add(cu65)
-cu66 = Customer(customername="Ricardo Adocicados", contactname="Janete Limeira", address="Av. Copacabana, 267", city="Rio de Janeiro", postalcode="02389-890", country="Brazil")
-db.session.add(cu66)
-cu67 = Customer(customername="Richter Supermarkt", contactname="Michael Holz", address="Grenzacherweg 237", city="Genève", postalcode="1203", country="Switzerland")
-db.session.add(cu67)
-cu68 = Customer(customername="Romero y tomillo", contactname="Alejandra Camino", address="Gran Vía, 1", city="Madrid", postalcode="28001", country="Spain")
-db.session.add(cu68)
-cu69 = Customer(customername="Santé Gourmet", contactname="Jonas Bergulfsen", address="Erling Skakkes gate 78", city="Stavern", postalcode="4110", country="Norway")
-db.session.add(cu69)
-cu70 = Customer(customername="Save-a-lot Markets", contactname="Jose Pavarotti", address="187 Suffolk Ln.", city="Boise", postalcode="83720", country="USA")
-db.session.add(cu70)
-cu71 = Customer(customername="Seven Seas Imports", contactname="Hari Kumar", address="90 Wadhurst Rd.", city="London", postalcode="OX15 4NB", country="UK")
-db.session.add(cu71)
-cu72 = Customer(customername="Simons bistro", contactname="Jytte Petersen", address="Vinbæltet 34", city="København", postalcode="1734", country="Denmark")
-db.session.add(cu72)
-cu73 = Customer(customername="Spécialités du monde", contactname="Dominique Perrier", address="25, rue Lauriston", city="Paris", postalcode="75016", country="France")
-db.session.add(cu73)
-cu74 = Customer(customername="Split Rail Beer & Ale", contactname="Art Braunschweiger", address="P.O. Box 555", city="Lander", postalcode="82520", country="USA")
-db.session.add(cu74)
-cu75 = Customer(customername="Suprêmes délices", contactname="Pascale Cartrain", address="Boulevard Tirou, 255", city="Charleroi", postalcode="B-6000", country="Belgium")
-db.session.add(cu75)
-cu76 = Customer(customername="The Big Cheese", contactname="Liz Nixon", address="89 Jefferson Way Suite 2", city="Portland", postalcode="97201", country="USA")
-db.session.add(cu76)
-cu77 = Customer(customername="The Cracker Box", contactname="Liu Wong", address="55 Grizzly Peak Rd.", city="Butte", postalcode="59801", country="USA")
-db.session.add(cu77)
-cu78 = Customer(customername="Toms Spezialitäten", contactname="Karin Josephs", address="Luisenstr. 48", city="Münster", postalcode="44087", country="Germany")
-db.session.add(cu78)
-cu79 = Customer(customername="Tortuga Restaurante", contactname="Miguel Angel Paolino", address="Avda. Azteca 123", city="México D.F.", postalcode="05033", country="Mexico")
-db.session.add(cu79)
-cu80 = Customer(customername="Tradição Hipermercados", contactname="Anabela Domingues", address="Av. Inês de Castro, 414", city="São Paulo", postalcode="05634-030", country="Brazil")
-db.session.add(cu80)
-cu81 = Customer(customername="Trail's Head Gourmet Provisioners", contactname="Helvetius Nagy", address="722 DaVinci Blvd.", city="Kirkland", postalcode="98034", country="USA")
-db.session.add(cu81)
-cu82 = Customer(customername="Vaffeljernet", contactname="Palle Ibsen", address="Smagsløget 45", city="Århus", postalcode="8200", country="Denmark")
-db.session.add(cu82)
-cu83 = Customer(customername="Victuailles en stock", contactname="Mary Saveley", address="2, rue du Commerce", city="Lyon", postalcode="69004", country="France")
-db.session.add(cu83)
-cu84 = Customer(customername="Vins et alcools Chevalier", contactname="Paul Henriot", address="59 rue de l'Abbaye", city="Reims", postalcode="51100", country="France")
-db.session.add(cu84)
-cu85 = Customer(customername="Die Wandernde Kuh", contactname="Rita Müller", address="Adenauerallee 900", city="Stuttgart", postalcode="70563", country="Germany")
-db.session.add(cu85)
-cu86 = Customer(customername="Wartian Herkku", contactname="Pirkko Koskitalo", address="Torikatu 38", city="Oulu", postalcode="90110", country="Finland")
-db.session.add(cu86)
-cu87 = Customer(customername="Wellington Importadora", contactname="Paula Parente", address="Rua do Mercado, 12", city="Resende", postalcode="08737-363", country="Brazil")
-db.session.add(cu87)
-cu88 = Customer(customername="White Clover Markets", contactname="Karl Jablonski", address="305 - 14th Ave. S. Suite 3B", city="Seattle", postalcode="98128", country="USA")
-db.session.add(cu88)
-cu89 = Customer(customername="Wilman Kala", contactname="Matti Karttunen", address="Keskuskatu 45", city="Helsinki", postalcode="21240", country="Finland")
-db.session.add(cu89)
-cu90 = Customer(customername="Wolski", contactname="Zbyszek", address="ul. Filtrowa 68", city="Walla", postalcode="01-012", country="Poland")
-db.session.add(cu90)
+u0 = User(
+         username="MariaAnders", customername="Alfreds Futterkiste", lastname=None, middlename=None,
+        firstname="Maria", email="AlfredsFutterkiste@example.com", address="Obere Str. 57", city="Berlin", postalcode="12209",
+        country="Germany")
+db.session.add(u0)
+u1 = User(
+        username="AnaTrujillo", customername="Ana Trujillo Emparedados y helados", lastname=None, middlename=None,
+        firstname="Ana", email="AnaTrujilloEmparedadosyhelados@example.com", address="Avda. de la Constitución 2222", city="México D.F.", postalcode="05021",
+        country="Mexico")
+db.session.add(u1)
+u2 = User(
+        username="AntonioMoreno", customername="Antonio Moreno Taquería", lastname=None, middlename=None,
+        firstname="Antonio", email="AntonioMorenoTaquería@example.com", address="Mataderos 2312", city="México D.F.", postalcode="05023",
+        country="Mexico")
+db.session.add(u2)
+u3 = User(
+        username="ThomasHardy", customername="Around the Horn", lastname=None, middlename=None,
+        firstname="Thomas", email="AroundtheHorn@example.com", address="120 Hanover Sq.", city="London", postalcode="WA1 1DP",
+        country="UK")
+db.session.add(u3)
+u4 = User(
+        username="ChristinaBerglund", customername="Berglunds snabbköp", lastname=None, middlename=None,
+        firstname="Christina", email="Berglundssnabbköp@example.com", address="Berguvsvägen 8", city="Luleå", postalcode="S-958 22",
+        country="Sweden")
+db.session.add(u4)
+u5 = User(
+        username="HannaMoos", customername="Blauer See Delikatessen", lastname=None, middlename=None,
+        firstname="Hanna", email="BlauerSeeDelikatessen@example.com", address="Forsterstr. 57", city="Mannheim", postalcode="68306",
+        country="Germany")
+db.session.add(u5)
+u6 = User(
+        username="FrédériqueCiteaux", customername="Blondel père et fils", lastname=None, middlename=None,
+        firstname="Frédérique", email="Blondelpèreetfils@example.com", address="24, place Kléber", city="Strasbourg", postalcode="67000",
+        country="France")
+db.session.add(u6)
+u7 = User(
+        username="MartínSommer", customername="Bólido Comidas preparadas", lastname=None, middlename=None,
+        firstname="Martín", email="BólidoComidaspreparadas@example.com", address="C/ Araquil, 67", city="Madrid", postalcode="28023",
+        country="Spain")
+db.session.add(u7)
+u8 = User(
+        username="LaurenceLebihans", customername="Bon app'", lastname=None, middlename=None,
+        firstname="Laurence", email="Bonapp'@example.com", address="12, rue des Bouchers", city="Marseille", postalcode="13008",
+        country="France")
+db.session.add(u8)
+u9 = User(
+        username="ElizabethLincoln", customername="Bottom-Dollar Marketse", lastname=None, middlename=None,
+        firstname="Elizabeth", email="Bottom-DollarMarketse@example.com", address="23 Tsawassen Blvd.", city="Tsawassen", postalcode="T2F 8M4",
+        country="Canada")
+db.session.add(u9)
+u10 = User(
+        username="VictoriaAshworth", customername="B's Beverages", lastname=None, middlename=None,
+        firstname="Victoria", email="B'sBeverages@example.com", address="Fauntleroy Circus", city="London", postalcode="EC2 5NT",
+        country="UK")
+db.session.add(u10)
+u11 = User(
+        username="PatricioSimpson", customername="Cactus Comidas para llevar", lastname=None, middlename=None,
+        firstname="Patricio", email="CactusComidasparallevar@example.com", address="Cerrito 333", city="Buenos Aires", postalcode="1010",
+        country="Argentina")
+db.session.add(u11)
+u12 = User(
+        username="FranciscoChang", customername="Centro comercial Moctezuma", lastname=None, middlename=None,
+        firstname="Francisco", email="CentrocomercialMoctezuma@example.com", address="Sierras de Granada 9993", city="México D.F.", postalcode="05022",
+        country="Mexico")
+db.session.add(u12)
+u13 = User(
+        username="YangWang", customername="Chop-suey Chinese", lastname=None, middlename=None,
+        firstname="Yang", email="Chop-sueyChinese@example.com", address="Hauptstr. 29", city="Bern", postalcode="3012",
+        country="Switzerland")
+db.session.add(u13)
+u14 = User(
+        username="PedroAfonso", customername="Comércio Mineiro", lastname=None, middlename=None,
+        firstname="Pedro", email="ComércioMineiro@example.com", address="Av. dos Lusíadas, 23", city="São Paulo", postalcode="05432-043",
+        country="Brazil")
+db.session.add(u14)
+u15 = User(
+        username="ElizabethBrown", customername="Consolidated Holdings", lastname=None, middlename=None,
+        firstname="Elizabeth", email="ConsolidatedHoldings@example.com", address="Berkeley Gardens 12 Brewery ", city="London", postalcode="WX1 6LT",
+        country="UK")
+db.session.add(u15)
+u16 = User(
+        username="SvenOttlieb", customername="Drachenblut Delikatessend", lastname=None, middlename=None,
+        firstname="Sven", email="DrachenblutDelikatessend@example.com", address="Walserweg 21", city="Aachen", postalcode="52066",
+        country="Germany")
+db.session.add(u16)
+u17 = User(
+        username="JanineLabrune", customername="Du monde entier", lastname=None, middlename=None,
+        firstname="Janine", email="Dumondeentier@example.com", address="67, rue des Cinquante Otages", city="Nantes", postalcode="44000",
+        country="France")
+db.session.add(u17)
+u18 = User(
+        username="AnnDevon", customername="Eastern Connection", lastname=None, middlename=None,
+        firstname="Ann", email="EasternConnection@example.com", address="35 King George", city="London", postalcode="WX3 6FW",
+        country="UK")
+db.session.add(u18)
+u19 = User(
+        username="RolandMendel", customername="Ernst Handel", lastname=None, middlename=None,
+        firstname="Roland", email="ErnstHandel@example.com", address="Kirchgasse 6", city="Graz", postalcode="8010",
+        country="Austria")
+db.session.add(u19)
+u20 = User(
+        username="AriaCruz", customername="Familia Arquibaldo", lastname=None, middlename=None,
+        firstname="Aria", email="FamiliaArquibaldo@example.com", address="Rua Orós, 92", city="São Paulo", postalcode="05442-030",
+        country="Brazil")
+db.session.add(u20)
+u21 = User(
+        username="DiegoRoel", customername="FISSA Fabrica Inter. Salchichas S.A.", lastname=None, middlename=None,
+        firstname="Diego", email="FISSAFabricaInter.SalchichasS.A.@example.com", address="C/ Moralzarzal, 86", city="Madrid", postalcode="28034",
+        country="Spain")
+db.session.add(u21)
+u22 = User(
+        username="MartineRancé", customername="Folies gourmandes", lastname=None, middlename=None,
+        firstname="Martine", email="Foliesgourmandes@example.com", address="184, chaussée de Tournai", city="Lille", postalcode="59000",
+        country="France")
+db.session.add(u22)
+u23 = User(
+        username="MariaLarsson", customername="Folk och fä HB", lastname=None, middlename=None,
+        firstname="Maria", email="FolkochfäHB@example.com", address="Åkergatan 24", city="Bräcke", postalcode="S-844 67",
+        country="Sweden")
+db.session.add(u23)
+u24 = User(
+        username="PeterFranken", customername="Frankenversand", lastname=None, middlename=None,
+        firstname="Peter", email="Frankenversand@example.com", address="Berliner Platz 43", city="München", postalcode="80805",
+        country="Germany")
+db.session.add(u24)
+u25 = User(
+        username="CarineSchmitt", customername="France restauration", lastname=None, middlename=None,
+        firstname="Carine", email="Francerestauration@example.com", address="54, rue Royale", city="Nantes", postalcode="44000",
+        country="France")
+db.session.add(u25)
+u26 = User(
+        username="PaoloAccorti", customername="Franchi S.p.A.", lastname=None, middlename=None,
+        firstname="Paolo", email="FranchiS.p.A.@example.com", address="Via Monte Bianco 34", city="Torino", postalcode="10100",
+        country="Italy")
+db.session.add(u26)
+u27 = User(
+        username="LinoRodriguez", customername="Furia Bacalhau e Frutos do Mar", lastname=None, middlename=None,
+        firstname="Lino", email="FuriaBacalhaueFrutosdoMar@example.com", address="Jardim das rosas n. 32", city="Lisboa", postalcode="1675",
+        country="Portugal")
+db.session.add(u27)
+u28 = User(
+        username="EduardoSaavedra", customername="Galería del gastrónomo", lastname=None, middlename=None,
+        firstname="Eduardo", email="Galeríadelgastrónomo@example.com", address="Rambla de Cataluña, 23", city="Barcelona", postalcode="08022",
+        country="Spain")
+db.session.add(u28)
+u29 = User(
+        username="JoséPedroFreyre", customername="Godos Cocina Típica", lastname="Freyre", middlename="Pedro",
+        firstname="José", email="GodosCocinaTípica@example.com", address="C/ Romero, 33", city="Sevilla", postalcode="41101",
+        country="Spain")
+db.session.add(u29)
+u30 = User(
+        username="AndréFonseca", customername="Gourmet Lanchonetes", lastname=None, middlename=None,
+        firstname="André", email="GourmetLanchonetes@example.com", address="Av. Brasil, 442", city="Campinas", postalcode="04876-786",
+        country="Brazil")
+db.session.add(u30)
+u31 = User(
+        username="HowardSnyder", customername="Great Lakes Food Market", lastname=None, middlename=None,
+        firstname="Howard", email="GreatLakesFoodMarket@example.com", address="2732 Baker Blvd.", city="Eugene", postalcode="97403",
+        country="USA")
+db.session.add(u31)
+u32 = User(
+        username="ManuelPereira", customername="GROSELLA-Restaurante", lastname=None, middlename=None,
+        firstname="Manuel", email="GROSELLA-Restaurante@example.com", address="5ª Ave. Los Palos Grandes", city="Caracas", postalcode="1081",
+        country="Venezuela")
+db.session.add(u32)
+u33 = User(
+        username="MarioPontes", customername="Hanari Carnes", lastname=None, middlename=None,
+        firstname="Mario", email="HanariCarnes@example.com", address="Rua do Paço, 67", city="Rio de Janeiro", postalcode="05454-876",
+        country="Brazil")
+db.session.add(u33)
+u34 = User(
+        username="CarlosHernández", customername="HILARIÓN-Abastos", lastname=None, middlename=None,
+        firstname="Carlos", email="HILARIÓN-Abastos@example.com", address="Carrera 22 con Ave. Carlos Soublette #8-35", city="San Cristóbal", postalcode="5022",
+        country="Venezuela")
+db.session.add(u34)
+u35 = User(
+        username="YoshiLatimer", customername="Hungry Coyote Import Store", lastname=None, middlename=None,
+        firstname="Yoshi", email="HungryCoyoteImportStore@example.com", address="City Center Plaza 516 Main St.", city="Elgin", postalcode="97827",
+        country="USA")
+db.session.add(u35)
+u36 = User(
+        username="PatriciaMcKenna", customername="Hungry Owl All-Night Grocers", lastname=None, middlename=None,
+        firstname="Patricia", email="HungryOwlAll-NightGrocers@example.com", address="8 Johnstown Road", city="Cork", postalcode="",
+        country="Ireland")
+db.session.add(u36)
+u37 = User(
+        username="HelenBennett", customername="Island Trading", lastname=None, middlename=None,
+        firstname="Helen", email="IslandTrading@example.com", address="Garden House Crowther Way", city="Cowes", postalcode="PO31 7PJ",
+        country="UK")
+db.session.add(u37)
+u38 = User(
+        username="PhilipCramer", customername="Königlich Essen", lastname=None, middlename=None,
+        firstname="Philip", email="KöniglichEssen@example.com", address="Maubelstr. 90", city="Brandenburg", postalcode="14776",
+        country="Germany")
+db.session.add(u38)
+u39 = User(
+        username="DanielTonini", customername="La corne d'abondance", lastname=None, middlename=None,
+        firstname="Daniel", email="Lacorned'abondance@example.com", address="67, avenue de l'Europe", city="Versailles", postalcode="78000",
+        country="France")
+db.session.add(u39)
+u40 = User(
+        username="AnnetteRoulet", customername="La maison d'Asie", lastname=None, middlename=None,
+        firstname="Annette", email="Lamaisond'Asie@example.com", address="1 rue Alsace-Lorraine", city="Toulouse", postalcode="31000",
+        country="France")
+db.session.add(u40)
+u41 = User(
+        username="YoshiTannamuri", customername="Laughing Bacchus Wine Cellars", lastname=None, middlename=None,
+        firstname="Yoshi", email="LaughingBacchusWineCellars@example.com", address="1900 Oak St.", city="Vancouver", postalcode="V3F 2K1",
+        country="Canada")
+db.session.add(u41)
+u42 = User(
+        username="JohnSteel", customername="Lazy K Kountry Store", lastname=None, middlename=None,
+        firstname="John", email="LazyKKountryStore@example.com", address="12 Orchestra Terrace", city="Walla Walla", postalcode="99362",
+        country="USA")
+db.session.add(u42)
+u43 = User(
+        username="RenateMessner", customername="Lehmanns Marktstand", lastname=None, middlename=None,
+        firstname="Renate", email="LehmannsMarktstand@example.com", address="Magazinweg 7", city="Frankfurt a.M. ", postalcode="60528",
+        country="Germany")
+db.session.add(u43)
+u44 = User(
+        username="JaimeYorres", customername="Let's Stop N Shop", lastname=None, middlename=None,
+        firstname="Jaime", email="Let'sStopNShop@example.com", address="87 Polk St. Suite 5", city="San Francisco", postalcode="94117",
+        country="USA")
+db.session.add(u44)
+u45 = User(
+        username="CarlosGonzález", customername="LILA-Supermercado", lastname=None, middlename=None,
+        firstname="Carlos", email="LILA-Supermercado@example.com", address="Carrera 52 con Ave. Bolívar #65-98 Llano Largo", city="Barquisimeto", postalcode="3508",
+        country="Venezuela")
+db.session.add(u45)
+u46 = User(
+        username="FelipeIzquierdo", customername="LINO-Delicateses", lastname=None, middlename=None,
+        firstname="Felipe", email="LINO-Delicateses@example.com", address="Ave. 5 de Mayo Porlamar", city="I. de Margarita", postalcode="4980",
+        country="Venezuela")
+db.session.add(u46)
+u47 = User(
+        username="FranWilson", customername="Lonesome Pine Restaurant", lastname=None, middlename=None,
+        firstname="Fran", email="LonesomePineRestaurant@example.com", address="89 Chiaroscuro Rd.", city="Portland", postalcode="97219",
+        country="USA")
+db.session.add(u47)
+u48 = User(
+        username="GiovanniRovelli", customername="Magazzini Alimentari Riuniti", lastname=None, middlename=None,
+        firstname="Giovanni", email="MagazziniAlimentariRiuniti@example.com", address="Via Ludovico il Moro 22", city="Bergamo", postalcode="24100",
+        country="Italy")
+db.session.add(u48)
+u49 = User(
+        username="CatherineDewey", customername="Maison Dewey", lastname=None, middlename=None,
+        firstname="Catherine", email="MaisonDewey@example.com", address="Rue Joseph-Bens 532", city="Bruxelles", postalcode="B-1180",
+        country="Belgium")
+db.session.add(u49)
+u50 = User(
+        username="JeanFresnière", customername="Mère Paillarde", lastname=None, middlename=None,
+        firstname="Jean", email="MèrePaillarde@example.com", address="43 rue St. Laurent", city="Montréal", postalcode="H1J 1C3",
+        country="Canada")
+db.session.add(u50)
+u51 = User(
+        username="AlexanderFeuer", customername="Morgenstern Gesundkost", lastname=None, middlename=None,
+        firstname="Alexander", email="MorgensternGesundkost@example.com", address="Heerstr. 22", city="Leipzig", postalcode="04179",
+        country="Germany")
+db.session.add(u51)
+u52 = User(
+        username="SimonCrowther", customername="North/South", lastname=None, middlename=None,
+        firstname="Simon", email="North/South@example.com", address="South House 300 Queensbridge", city="London", postalcode="SW7 1RZ",
+        country="UK")
+db.session.add(u52)
+u53 = User(
+        username="YvonneMoncada", customername="Océano Atlántico Ltda.", lastname=None, middlename=None,
+        firstname="Yvonne", email="OcéanoAtlánticoLtda.@example.com", address="Ing. Gustavo Moncada 8585 Piso 20-A", city="Buenos Aires", postalcode="1010",
+        country="Argentina")
+db.session.add(u53)
+u54 = User(
+        username="RenePhillips", customername="Old World Delicatessen", lastname=None, middlename=None,
+        firstname="Rene", email="OldWorldDelicatessen@example.com", address="2743 Bering St.", city="Anchorage", postalcode="99508",
+        country="USA")
+db.session.add(u54)
+u55 = User(
+        username="HenriettePfalzheim", customername="Ottilies Käseladen", lastname=None, middlename=None,
+        firstname="Henriette", email="OttiliesKäseladen@example.com", address="Mehrheimerstr. 369", city="Köln", postalcode="50739",
+        country="Germany")
+db.session.add(u55)
+u56 = User(
+        username="MarieBertrand", customername="Paris spécialités", lastname=None, middlename=None,
+        firstname="Marie", email="Parisspécialités@example.com", address="265, boulevard Charonne", city="Paris", postalcode="75012",
+        country="France")
+db.session.add(u56)
+u57 = User(
+        username="GuillermoFernández", customername="Pericles Comidas clásicas", lastname=None, middlename=None,
+        firstname="Guillermo", email="PericlesComidasclásicas@example.com", address="Calle Dr. Jorge Cash 321", city="México D.F.", postalcode="05033",
+        country="Mexico")
+db.session.add(u57)
+u58 = User(
+        username="GeorgPipps", customername="Piccolo und mehr", lastname=None, middlename=None,
+        firstname="Georg", email="Piccoloundmehr@example.com", address="Geislweg 14", city="Salzburg", postalcode="5020",
+        country="Austria")
+db.session.add(u58)
+u59 = User(
+        username="IsabeldeCastro", customername="Princesa Isabel Vinhoss", lastname="Castro", middlename="de",
+        firstname="Isabel", email="PrincesaIsabelVinhoss@example.com", address="Estrada da saúde n. 58", city="Lisboa", postalcode="1756",
+        country="Portugal")
+db.session.add(u59)
+u60 = User(
+        username="BernardoBatista", customername="Que Delícia", lastname=None, middlename=None,
+        firstname="Bernardo", email="QueDelícia@example.com", address="Rua da Panificadora, 12", city="Rio de Janeiro", postalcode="02389-673",
+        country="Brazil")
+db.session.add(u60)
+u61 = User(
+        username="LúciaCarvalho", customername="Queen Cozinha", lastname=None, middlename=None,
+        firstname="Lúcia", email="QueenCozinha@example.com", address="Alameda dos Canàrios, 891", city="São Paulo", postalcode="05487-020",
+        country="Brazil")
+db.session.add(u61)
+u62 = User(
+        username="HorstKloss", customername="QUICK-Stop", lastname=None, middlename=None,
+        firstname="Horst", email="QUICK-Stop@example.com", address="Taucherstraße 10", city="Cunewalde", postalcode="01307",
+        country="Germany")
+db.session.add(u62)
+u63 = User(
+        username="SergioGutiérrez", customername="Rancho grande", lastname=None, middlename=None,
+        firstname="Sergio", email="Ranchogrande@example.com", address="Av. del Libertador 900", city="Buenos Aires", postalcode="1010",
+        country="Argentina")
+db.session.add(u63)
+u64 = User(
+        username="PaulaWilson", customername="Rattlesnake Canyon Grocery", lastname=None, middlename=None,
+        firstname="Paula", email="RattlesnakeCanyonGrocery@example.com", address="2817 Milton Dr.", city="Albuquerque", postalcode="87110",
+        country="USA")
+db.session.add(u64)
+u65 = User(
+        username="MaurizioMoroni", customername="Reggiani Caseifici", lastname=None, middlename=None,
+        firstname="Maurizio", email="ReggianiCaseifici@example.com", address="Strada Provinciale 124", city="Reggio Emilia", postalcode="42100",
+        country="Italy")
+db.session.add(u65)
+u66 = User(
+        username="JaneteLimeira", customername="Ricardo Adocicados", lastname=None, middlename=None,
+        firstname="Janete", email="RicardoAdocicados@example.com", address="Av. Copacabana, 267", city="Rio de Janeiro", postalcode="02389-890",
+        country="Brazil")
+db.session.add(u66)
+u67 = User(
+        username="MichaelHolz", customername="Richter Supermarkt", lastname=None, middlename=None,
+        firstname="Michael", email="RichterSupermarkt@example.com", address="Grenzacherweg 237", city="Genève", postalcode="1203",
+        country="Switzerland")
+db.session.add(u67)
+u68 = User(
+        username="AlejandraCamino", customername="Romero y tomillo", lastname=None, middlename=None,
+        firstname="Alejandra", email="Romeroytomillo@example.com", address="Gran Vía, 1", city="Madrid", postalcode="28001",
+        country="Spain")
+db.session.add(u68)
+u69 = User(
+        username="JonasBergulfsen", customername="Santé Gourmet", lastname=None, middlename=None,
+        firstname="Jonas", email="SantéGourmet@example.com", address="Erling Skakkes gate 78", city="Stavern", postalcode="4110",
+        country="Norway")
+db.session.add(u69)
+u70 = User(
+        username="JosePavarotti", customername="Save-a-lot Markets", lastname=None, middlename=None,
+        firstname="Jose", email="Save-a-lotMarkets@example.com", address="187 Suffolk Ln.", city="Boise", postalcode="83720",
+        country="USA")
+db.session.add(u70)
+u71 = User(
+        username="HariKumar", customername="Seven Seas Imports", lastname=None, middlename=None,
+        firstname="Hari", email="SevenSeasImports@example.com", address="90 Wadhurst Rd.", city="London", postalcode="OX15 4NB",
+        country="UK")
+db.session.add(u71)
+u72 = User(
+        username="JyttePetersen", customername="Simons bistro", lastname=None, middlename=None,
+        firstname="Jytte", email="Simonsbistro@example.com", address="Vinbæltet 34", city="København", postalcode="1734",
+        country="Denmark")
+db.session.add(u72)
+u73 = User(
+        username="DominiquePerrier", customername="Spécialités du monde", lastname=None, middlename=None,
+        firstname="Dominique", email="Spécialitésdumonde@example.com", address="25, rue Lauriston", city="Paris", postalcode="75016",
+        country="France")
+db.session.add(u73)
+u74 = User(
+        username="ArtBraunschweiger", customername="Split Rail Beer & Ale", lastname=None, middlename=None,
+        firstname="Art", email="SplitRailBeer&Ale@example.com", address="P.O. Box 555", city="Lander", postalcode="82520",
+        country="USA")
+db.session.add(u74)
+u75 = User(
+        username="PascaleCartrain", customername="Suprêmes délices", lastname=None, middlename=None,
+        firstname="Pascale", email="Suprêmesdélices@example.com", address="Boulevard Tirou, 255", city="Charleroi", postalcode="B-6000",
+        country="Belgium")
+db.session.add(u75)
+u76 = User(
+        username="LizNixon", customername="The Big Cheese", lastname=None, middlename=None,
+        firstname="Liz", email="TheBigCheese@example.com", address="89 Jefferson Way Suite 2", city="Portland", postalcode="97201",
+        country="USA")
+db.session.add(u76)
+u77 = User(
+        username="LiuWong", customername="The Cracker Box", lastname=None, middlename=None,
+        firstname="Liu", email="TheCrackerBox@example.com", address="55 Grizzly Peak Rd.", city="Butte", postalcode="59801",
+        country="USA")
+db.session.add(u77)
+u78 = User(
+        username="KarinJosephs", customername="Toms Spezialitäten", lastname=None, middlename=None,
+        firstname="Karin", email="TomsSpezialitäten@example.com", address="Luisenstr. 48", city="Münster", postalcode="44087",
+        country="Germany")
+db.session.add(u78)
+u79 = User(
+        username="MiguelAngelPaolino", customername="Tortuga Restaurante", lastname="Paolino", middlename="Angel",
+        firstname="Miguel", email="TortugaRestaurante@example.com", address="Avda. Azteca 123", city="México D.F.", postalcode="05033",
+        country="Mexico")
+db.session.add(u79)
+u80 = User(
+        username="AnabelaDomingues", customername="Tradição Hipermercados", lastname=None, middlename=None,
+        firstname="Anabela", email="TradiçãoHipermercados@example.com", address="Av. Inês de Castro, 414", city="São Paulo", postalcode="05634-030",
+        country="Brazil")
+db.session.add(u80)
+u81 = User(
+        username="HelvetiusNagy", customername="Trail's Head Gourmet Provisioners", lastname=None, middlename=None,
+        firstname="Helvetius", email="Trail'sHeadGourmetProvisioners@example.com", address="722 DaVinci Blvd.", city="Kirkland", postalcode="98034",
+        country="USA")
+db.session.add(u81)
+u82 = User(
+        username="PalleIbsen", customername="Vaffeljernet", lastname=None, middlename=None,
+        firstname="Palle", email="Vaffeljernet@example.com", address="Smagsløget 45", city="Århus", postalcode="8200",
+        country="Denmark")
+db.session.add(u82)
+u83 = User(
+        username="MarySaveley", customername="Victuailles en stock", lastname=None, middlename=None,
+        firstname="Mary", email="Victuaillesenstock@example.com", address="2, rue du Commerce", city="Lyon", postalcode="69004",
+        country="France")
+db.session.add(u83)
+u84 = User(
+        username="PaulHenriot", customername="Vins et alcools Chevalier", lastname=None, middlename=None,
+        firstname="Paul", email="VinsetalcoolsChevalier@example.com", address="59 rue de l'Abbaye", city="Reims", postalcode="51100",
+        country="France")
+db.session.add(u84)
+u85 = User(
+        username="RitaMüller", customername="Die Wandernde Kuh", lastname=None, middlename=None,
+        firstname="Rita", email="DieWanderndeKuh@example.com", address="Adenauerallee 900", city="Stuttgart", postalcode="70563",
+        country="Germany")
+db.session.add(u85)
+u86 = User(
+        username="PirkkoKoskitalo", customername="Wartian Herkku", lastname=None, middlename=None,
+        firstname="Pirkko", email="WartianHerkku@example.com", address="Torikatu 38", city="Oulu", postalcode="90110",
+        country="Finland")
+db.session.add(u86)
+u87 = User(
+        username="PaulaParente", customername="Wellington Importadora", lastname=None, middlename=None,
+        firstname="Paula", email="WellingtonImportadora@example.com", address="Rua do Mercado, 12", city="Resende", postalcode="08737-363",
+        country="Brazil")
+db.session.add(u87)
+u88 = User(
+        username="KarlJablonski", customername="White Clover Markets", lastname=None, middlename=None,
+        firstname="Karl", email="WhiteCloverMarkets@example.com", address="305 - 14th Ave. S. Suite 3B", city="Seattle", postalcode="98128",
+        country="USA")
+db.session.add(u88)
+u89 = User(
+        username="MattiKarttunen", customername="Wilman Kala", lastname=None, middlename=None,
+        firstname="Matti", email="WilmanKala@example.com", address="Keskuskatu 45", city="Helsinki", postalcode="21240",
+        country="Finland")
+db.session.add(u89)
+u90 = User(
+        username="Zbyszek", customername="Wolski", lastname=None, middlename=None,
+        firstname="Zbyszek", email="Wolski@example.com", address="ul. Filtrowa 68", city="Walla", postalcode="01-012",
+        country="Poland")
+db.session.add(u90)
 db.session.commit()
-print('Customer data added!')
+print('User data added!')
 
 
 
