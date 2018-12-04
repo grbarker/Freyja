@@ -1,5 +1,6 @@
-
-orders_array = [(10248,90,5,"1996-07-04",3),
+from datetime import datetime
+orders_array = [
+    (10248,90,5,"1996-07-04",3),
     (10249,81,6,"1996-07-05",1),
     (10250,34,4,"1996-07-08",2),
     (10251,84,3,"1996-07-08",1),
@@ -194,8 +195,38 @@ orders_array = [(10248,90,5,"1996-07-04",3),
     (10440,71,4,"1997-02-10",2),
     (10441,55,3,"1997-02-10",2),
     (10442,20,3,"1997-02-11",2),
-    (10443,66,8,"1997-02-12",1)]
+    (10443,66,8,"1997-02-12",1)
+]
 
+print('import datetime')
+print('from app import db')
+print('from app.models import User, Order, Shipper\n\n\n')
 for o in orders_array:
-    print('o{} = Order(id={}, customer_id={}, employee_id={}, orderdate="{}", shipper_id={})\ndb.session.add(o{})'.format(o[0], o[1], o[2], o[3], o[4], o[5], o[0]))
-print('db.session.commit()\n\n\n\n\n\n')
+    splitdate = o[3].split("-")
+    y = int(splitdate[0])
+    if splitdate[1][0] == "0" and splitdate[2][0] == "0":
+        m = int(splitdate[1][1])
+        d = int(splitdate[2][1])
+    elif splitdate[2][0] == "0" and splitdate[2][0] != "0":
+        m = int(splitdate[1][1])
+        d = int(splitdate[2])
+    elif splitdate[2][0] != "0" and splitdate[2][0] == "0":
+        m = int(splitdate[1])
+        d = int(splitdate[2][1])
+    else:
+        m =int(splitdate[1])
+        d =int(splitdate[2])
+    sans0date_object = datetime(y, m, d).date()
+    date_object = datetime.strptime(o[3], "%Y-%m-%d").date()
+    #print(date_object)
+    print('''user = User.query.get(int({}))
+shipper = Shipper.query.get(int({}))
+o{} = Order(id={}, customer=user, orderdate=datetime({}, {}, {}), shipper=shipper)
+db.session.add(o{})\n'''.format(o[1], o[4], o[0], o[0], y, m, d, o[0]))
+
+print('db.session.commit()\n')
+print("print('Dummy Orders successfully added to database!')")
+
+
+
+
