@@ -5,9 +5,9 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.models import User, Post
+from app.models import User, Post, Employee
 from app.email import send_password_reset_email
-from app.forms import LoginForm, RegistrationForm, EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm
+from app.forms import LoginForm, RegistrationForm, EmployeeRegistrationForm, EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm
 
 
 @app.route('/', methods=['GET', 'POST'])
@@ -76,6 +76,21 @@ def register():
         flash('Congratulations, you are now a registered user!')
         return redirect(url_for('login'))
     return render_template('register.html', title='Register', form=form)
+
+
+@app.route('/register_employee', methods=['GET', 'POST'])
+def register_employee():
+    if current_user.is_authenticated:
+        return redirect(url_for('index'))
+    form = EmployeeRegistrationForm()
+    if form.validate_on_submit():
+        employee = Employee(employeeID=form.employee_id.data, lastname=form.lastname.data, firstname=form.firstname.data)
+        employee.set_password(form.password.data)
+        db.session.add(employee)
+        db.session.commit()
+        flash('Congratulations, you are now a registered employee!')
+        return redirect(url_for('login'))
+    return render_template('register_employee.html', title='Employee Register', form=form)
 
 
 #from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-x-email-support
