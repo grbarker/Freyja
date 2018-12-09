@@ -5,9 +5,23 @@ from werkzeug.urls import url_parse
 from datetime import datetime
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.models import User, Post, Employee
+from app.models import User, Post, Employee, Product
 from app.email import send_password_reset_email
 from app.forms import LoginForm, RegistrationForm, EmployeeRegistrationForm, EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm
+
+
+@app.route('/products')
+def products():
+    page = request.args.get('page', 1, type=int)
+    products = Product.query.paginate(
+        page, 36, False)
+    next_url = url_for('products', page=products.next_num) \
+        if products.has_next else None
+    prev_url = url_for('products', page=products.prev_num) \
+        if products.has_prev else None
+    return render_template('products.html', title='Products',
+                           products=products.items, next_url=next_url,
+                           prev_url=prev_url)
 
 
 @app.route('/', methods=['GET', 'POST'])
