@@ -1,0 +1,16 @@
+
+
+
+.grid-container {
+  display: grid;
+}
+
+
+.products-section {
+    width: 100%;
+}
+
+.product {
+  grid-column-start: 1;
+  grid-column-end: 2;
+}
