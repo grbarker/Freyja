@@ -3,6 +3,10 @@
 {% block title %}
     {% if title %}{{ title }} - Freyja{% else %}Welcome to Freyja{% endif %}
 {% endblock %}
+{% block styles %}
+{{super()}}
+  <link rel="stylesheet" href="{{url_for('static', filename='mystyles.css')}}">
+{% endblock %}
 
 {% block navbar %}
     <nav class="navbar navbar-default">
