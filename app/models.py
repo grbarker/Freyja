@@ -185,7 +185,7 @@ class Product(db.Model):
     supplier_id = db.Column(db.Integer, db.ForeignKey('supplier.id'))
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     unit = db.Column(db.Integer)
-    price = db.Column(db.Numeric())
+    price = db.Column(db.Numeric(scale=2, asdecimal=True))
     orderdetails = db.relationship('OrderDetail', backref='product', lazy='dynamic')
 
 
