@@ -14,7 +14,7 @@ from app.forms import LoginForm, RegistrationForm, EmployeeRegistrationForm, Edi
 def products():
     page = request.args.get('page', 1, type=int)
     products = Product.query.paginate(
-        page, 36, False)
+        page, 24, False)
     next_url = url_for('products', page=products.next_num) \
         if products.has_next else None
     prev_url = url_for('products', page=products.prev_num) \
