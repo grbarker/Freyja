@@ -1,5 +1,12 @@
 from datetime import datetime
 
+
+
+print('''from datetime import datetime
+from app import db
+from app.models import User, Category, Supplier, Shipper, Employee\n\n\n''')
+
+
 customers_array = [
     ("Alfreds Futterkiste","Maria Anders","Obere Str. 57","Berlin","12209","Germany"),
     ("Ana Trujillo Emparedados y helados","Ana Trujillo","Avda. de la Constitución 2222","México D.F.","05021","Mexico"),
@@ -113,18 +120,15 @@ for u in customers_array:
         lastname = None
         middlenameinsert = 'middlename=None'
         lastnameinsert = 'lastname=None'
-    print('''u{} = User(
-        username="{}", customername="{}", {}, {},
-        firstname="{}", email="{}", address="{}", city="{}", postalcode="{}",
-        country="{}")\ndb.session.add(u{})'''
+    print('''u{} = User(username="{}",customername="{}",{},{},firstname="{}",email="{}",address="{}",city="{}",postalcode="{}",country="{}")\nu{}.set_password("{}")\ndb.session.add(u{})'''
         .format(
             customers_array.index(u),
             username, u[0], lastnameinsert, middlenameinsert,
             firstname, email, u[2], u[3], u[4],
-            u[5], customers_array.index(u))
+            u[5], customers_array.index(u), firstname, customers_array.index(u)
         )
-print('db.session.commit()\n\n\n\n\n\n')
-
+    )
+print('db.session.commit()\n\n\n')
 
 
 
@@ -161,10 +165,9 @@ suppliers_array = [
 ]
 
 for su in suppliers_array:
-    print('su{} = Supplier(suppliername="{}", contactname="{}", address="{}", city="{}", postalcode="{}", country="{}", phone="{}")\ndb.session.add(su{})'
+    print('su{} = Supplier(suppliername="{}",contactname="{}",address="{}",city="{}",postalcode="{}",country="{}",phone="{}")\ndb.session.add(su{})'
         .format(su[0], su[1], su[2], su[3], su[4], su[5], su[6], su[7], su[0]))
-print('db.session.commit()\n\n\n\n\n\n')
-
+print('db.session.commit()\n\n\n')
 
 
 
@@ -194,13 +197,10 @@ for e in employees_array:
     formatted_date_employees_array.append(formatted_date_employee)
 
 
-
 for e in formatted_date_employees_array:
-    print('e{} = Employee(lastname="{}", firstname="{}", notes="{}")\ndb.session.add(e{})'
+    print('e{} = Employee(lastname="{}",firstname="{}",notes="{}")\ndb.session.add(e{})'
           .format(formatted_date_employees_array.index(e), e[0], e[1], e[4], formatted_date_employees_array.index(e)))
-print('db.session.commit()\n\n\n\n\n\n')
-
-
+print('db.session.commit()\n\n\n')
 
 
 
@@ -217,10 +217,9 @@ categories_array = [
 
 
 for c in categories_array:
-    print('c{} = Category(categoryname="{}", description="{}")\ndb.session.add(c{})'.format(categories_array.index(c), c[1], c[0], categories_array.index(c)))
-print('db.session.commit()\n\n\n\n\n\n')
-
-
+    print('c{} = Category(categoryname="{}",description="{}")\ndb.session.add(c{})'
+        .format(categories_array.index(c), c[0], c[1], categories_array.index(c)))
+print('db.session.commit()\n\n\n')
 
 
 
@@ -232,6 +231,6 @@ shippers_array = [
 
 
 for s in shippers_array:
-    print('s{} = Shipper(shippername="{}", phone="{}")\ndb.session.add(s{})'.format(s[0], s[1], s[2], s[0]))
-print('db.session.commit()\n\n\n\n\n\n')
+    print('s{} = Shipper(shippername="{}",phone="{}")\ndb.session.add(s{})'.format(s[0], s[1], s[2], s[0]))
+print('db.session.commit()\n\n')
 
