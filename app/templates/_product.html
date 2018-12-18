@@ -1,6 +1,6 @@
 <div class="col-md-3">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 centerimg">
             {% if product.category.categoryname == "Beverages" %}
             <img src="/static/imgbycat/Beverages.jpg" alt="Placeholder picture of the category.">
             {% elif product.category.categoryname == "Condiments" %}
@@ -28,11 +28,13 @@
         </div>
         <div class="col-md-5">
             {{ product.unit }}<br>
-            {{ product.price }}
+            {{ product.price }}<br>
+            ID--->{{ product.id }}<br>
+            INDEX--->{{ products.index(product) }}
         </div>
     </div>
 </div>
-<!-- There is an error caused by the following line at the number after divisibleby. -->
-{% if products.index(product) + 1 % 4 == 0 and products.index(product) != 23 and products.index(product) != 0 %}
+<!-- This was done to achieve a grid system. It end and starts another row after every fourth item. -->
+{% if (products.index(product) + 1) % 4 == 0 and products.index(product) != 23 and products.index(product) != 0 %}
 </div><div class="row">
 {% endif %}
