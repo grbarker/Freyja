@@ -9,6 +9,8 @@ from time import time
 from app import app, db, login
 
 
+
+
 ##Pulled from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers
 followers = db.Table('followers',
     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),

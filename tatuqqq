@@ -1,0 +1,111 @@
+[1mdiff --git a/app.db b/app.db[m
+[1mindex 39c5690..9d8f70d 100644[m
+Binary files a/app.db and b/app.db differ
+[1mdiff --git a/app/__pycache__/forms.cpython-36.pyc b/app/__pycache__/forms.cpython-36.pyc[m
+[1mindex 7f08750..71593c8 100644[m
+Binary files a/app/__pycache__/forms.cpython-36.pyc and b/app/__pycache__/forms.cpython-36.pyc differ
+[1mdiff --git a/app/__pycache__/models.cpython-36.pyc b/app/__pycache__/models.cpython-36.pyc[m
+[1mindex a13160f..35fce8c 100644[m
+Binary files a/app/__pycache__/models.cpython-36.pyc and b/app/__pycache__/models.cpython-36.pyc differ
+[1mdiff --git a/app/__pycache__/routes.cpython-36.pyc b/app/__pycache__/routes.cpython-36.pyc[m
+[1mindex 12c7d59..00b4ae1 100644[m
+Binary files a/app/__pycache__/routes.cpython-36.pyc and b/app/__pycache__/routes.cpython-36.pyc differ
+[1mdiff --git a/app/forms.py b/app/forms.py[m
+[1mindex f68e1eb..9a9db44 100644[m
+[1m--- a/app/forms.py[m
+[1m+++ b/app/forms.py[m
+[36m@@ -1,7 +1,7 @@[m
+ ##Form code initially taken from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms[m
+ ##then altered as necessary to fit the needs of the project[m
+ from flask_wtf import FlaskForm[m
+[31m-from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField[m
+[32m+[m[32mfrom wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField, SelectField[m
+ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length[m
+ from app.models import User, Employee[m
+ [m
+[36m@@ -84,4 +84,8 @@[m [mclass ResetPasswordForm(FlaskForm):[m
+     password = PasswordField('Password', validators=[DataRequired()])[m
+     password2 = PasswordField([m
+         'Repeat Password', validators=[DataRequired(), EqualTo('password')])[m
+[31m-    submit = SubmitField('Request Password Reset')[m
+\ No newline at end of file[m
+[32m+[m[32m    submit = SubmitField('Request Password Reset')[m
+[32m+[m
+[32m+[m[32mclass SortForm(FlaskForm):[m
+[32m+[m[32m    sort_type = SelectField('Sort', coerce=int)[m
+[32m+[m[32m    submit = SubmitField('Sort')[m
+\ No newline at end of file[m
+[1mdiff --git a/app/models.py b/app/models.py[m
+[1mindex 25c34c5..348074b 100644[m
+[1m--- a/app/models.py[m
+[1m+++ b/app/models.py[m
+[36m@@ -9,6 +9,8 @@[m [mfrom time import time[m
+ from app import app, db, login[m
+ [m
+ [m
+[32m+[m
+[32m+[m
+ ##Pulled from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers[m
+ followers = db.Table('followers',[m
+     db.Column('follower_id', db.Integer, db.ForeignKey('user.id')),[m
+[1mdiff --git a/app/templates/_product.html b/app/templates/_product.html[m
+[1mindex 7a48e34..097aaed 100644[m
+[1m--- a/app/templates/_product.html[m
+[1m+++ b/app/templates/_product.html[m
+[36m@@ -1,6 +1,6 @@[m
+ <div class="col-md-3">[m
+     <div class="row">[m
+[31m-        <div class="col-md-12">[m
+[32m+[m[32m        <div class="col-md-12 centerimg">[m
+             {% if product.category.categoryname == "Beverages" %}[m
+             <img src="/static/imgbycat/Beverages.jpg" alt="Placeholder picture of the category.">[m
+             {% elif product.category.categoryname == "Condiments" %}[m
+[36m@@ -28,11 +28,13 @@[m
+         </div>[m
+         <div class="col-md-5">[m
+             {{ product.unit }}<br>[m
+[31m-            {{ product.price }}[m
+[32m+[m[32m            {{ product.price }}<br>[m
+[32m+[m[32m            ID--->{{ product.id }}<br>[m
+[32m+[m[32m            INDEX--->{{ products.index(product) }}[m
+         </div>[m
+     </div>[m
+ </div>[m
+[31m-<!-- There is an error caused by the following line at the number after divisibleby. -->[m
+[31m-{% if products.index(product) + 1 % 4 == 0 and products.index(product) != 23 and products.index(product) != 0 %}[m
+[32m+[m[32m<!-- This was done to achieve a grid system. It end and starts another row after every fourth item. -->[m
+[32m+[m[32m{% if (products.index(product) + 1) % 4 == 0 and products.index(product) != 23 and products.index(product) != 0 %}[m
+ </div><div class="row">[m
+ {% endif %}[m
+\ No newline at end of file[m
+[1mdiff --git a/app/templates/products.html b/app/templates/products.html[m
+[1mindex ce31c0b..3f8e8e3 100644[m
+[1m--- a/app/templates/products.html[m
+[1m+++ b/app/templates/products.html[m
+[36m@@ -7,7 +7,25 @@[m
+             <h1>Check out the hottest cosmetics available!</h1>[m
+         </div>[m
+     </div>[m
+[31m-[m
+[32m+[m[32m    {% if form %}[m
+[32m+[m[32m    <div class="row">[m
+[32m+[m[32m        <div class="col-md-9">[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m        <div class="col-md-3">[m
+[32m+[m[32m            <form action="" method="post">[m
+[32m+[m[32m                {{ form.hidden_tag() }}[m
+[32m+[m[32m                <p>[m
+[32m+[m[32m                    {{ form.sort_type.label }}<br>[m
+[32m+[m[32m                    {{ form.sort_type(class="form-control") }}<br>[m
+[32m+[m[32m                    {% for error in form.sort_type.errors %}[m
+[32m+[m[32m                    <span style="color: red;">[{{ error }}]</span>[m
+[32m+[m[32m                    {% endfor %}[m
+[32m+[m[32m                </p>[m
+[32m+[m[32m                <p>{{ form.submit(class="btn btn-default") }}</p>[m
+[32m+[m[32m            </form>[m
+[32m+[m[32m        </div>[m
+[32m+[m[32m    </div>[m
+[32m+[m[32m    {% endif %}[m
+     <div class="row">[m
+         {% for product in products %}[m
+             {% include '_product.html' %}[m
