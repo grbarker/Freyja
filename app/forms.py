@@ -1,7 +1,7 @@
 ##Form code initially taken from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-iii-web-forms
 ##then altered as necessary to fit the needs of the project
 from flask_wtf import FlaskForm
-from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField
+from wtforms import StringField, TextAreaField, PasswordField, BooleanField, SubmitField, SelectField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Length
 from app.models import User, Employee
 
@@ -85,3 +85,7 @@ class ResetPasswordForm(FlaskForm):
     password2 = PasswordField(
         'Repeat Password', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Request Password Reset')
+
+class SortForm(FlaskForm):
+    sort_type = SelectField('Sort', coerce=int)
+    submit = SubmitField('Sort')
