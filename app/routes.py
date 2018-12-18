@@ -1,27 +1,57 @@
 ##Form code initially taken from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates
 ##then altered as necessary to fit the needs of the project
-from flask import render_template, flash, redirect, url_for, request
+from flask import render_template, flash, redirect, url_for, request, session
+from sqlalchemy import asc, desc
 from werkzeug.urls import url_parse
 from datetime import datetime
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
 from app.models import User, Post, Employee, Product
 from app.email import send_password_reset_email
-from app.forms import LoginForm, RegistrationForm, EmployeeRegistrationForm, EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm
+from app.forms import LoginForm, RegistrationForm, EmployeeRegistrationForm, \
+    EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm, SortForm
 
 
-@app.route('/products')
+@app.route('/products', methods=['GET', 'POST'])
 def products():
+    form = SortForm()
     page = request.args.get('page', 1, type=int)
-    products = Product.query.paginate(
-        page, 24, False)
-    next_url = url_for('products', page=products.next_num) \
+    sort = request.args.get('sort', 1, type=int)
+    ##The sort arg of the request url is taken and compared to the hardcoded choices to find the
+    ##matching choice, which is then taken from its place and put at
+    ##the front of the array. This is done becase the SelectField of the form defaults to showing
+    ##the first choice before the drop down is opened and it was desired to have the currently
+    ##applied sort to be showing so it didn't confuse the user by showing Featured when the products
+    ##are actually sorted by Price: Low to High. This will need to be addressed again when the choices
+    ##array is decided upon(i.e. static or dynamic). So far I only needed a static, hardcoded set to work with.
+    choices = [(1, 'Featured'), (2, 'Top Rated'), (3, 'Price: Low to High'), (4, 'Price: High to Low')]
+    for choice in choices:
+        if sort == choice[0]:
+            choices.remove(choice)
+            choices.insert(0, choice)
+    ##The desired choice is put in the beginning of the choices array so it is shown as the default.
+    form.sort_type.choices = choices
+    if sort == 1:
+        products = Product.query.paginate(page, 24, False)
+    elif sort == 2:
+        products = Product.query.paginate(page, 24, False)
+    elif sort == 3:
+        products = Product.query.order_by(asc(Product.price)).paginate(page, 24, False)
+    elif sort == 4:
+        products = Product.query.order_by(desc(Product.price)).paginate(page, 24, False)
+    next_url = url_for('products', page=products.next_num, sort=sort) \
         if products.has_next else None
-    prev_url = url_for('products', page=products.prev_num) \
+    prev_url = url_for('products', page=products.prev_num, sort=sort) \
         if products.has_prev else None
+    if form.validate_on_submit():
+        page = request.args.get('page', 1, type=int)
+        flash('Page: ' + str(page))
+        flash('Sort: ' + str(form.sort_type.data))
+        sort = form.sort_type.data
+        return redirect(url_for('products', sort=sort))
     return render_template('products.html', title='Products',
                            products=products.items, next_url=next_url,
-                           prev_url=prev_url)
+                           prev_url=prev_url, form=form)
 
 
 @app.route('/', methods=['GET', 'POST'])
