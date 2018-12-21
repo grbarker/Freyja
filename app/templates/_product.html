@@ -1,25 +1,27 @@
 <div class="col-md-3">
-    <div class="row">
-        <div class="col-md-12 centerimg">
-            {% if product.category.categoryname == "Beverages" %}
-            <img src="/static/imgbycat/Beverages.jpg" alt="Placeholder picture of the category.">
-            {% elif product.category.categoryname == "Condiments" %}
-            <img src="/static/imgbycat/Condiments.jpg" alt="Placeholder picture of the category.">
-            {% elif product.category.categoryname == "Confections" %}
-            <img src="/static/imgbycat/Confections.jpg" alt="Placeholder picture of the category.">
-            {% elif product.category.categoryname == "Dairy Products" %}
-            <img src="/static/imgbycat/Dairy.jpg" alt="Placeholder picture of the category.">
-            {% elif product.category.categoryname == "Grains/Cereals" %}
-            <img src="/static/imgbycat/Grains.jpg" alt="Placeholder picture of the category.">
-            {% elif product.category.categoryname == "Meat/Poultry" %}
-            <img src="/static/imgbycat/Meat.jpg" alt="Placeholder picture of the category.">
-            {% elif product.category.categoryname == "Produce" %}
-            <img src="/static/imgbycat/Produce.jpg" alt="Placeholder picture of the category.">
-            {% else %}
-            <img src="/static/imgbycat/Seafood.jpg" alt="Placeholder picture of the category.">
-            {% endif %}
+    <a href="{{url_for('product', id=product.id)}}">
+        <div class="row">
+            <div class="col-md-12 centerimg">
+                {% if product.category.categoryname == "Beverages" %}
+                <img src="/static/imgbycat/Beverages.jpg" alt="Placeholder picture of the category.">
+                {% elif product.category.categoryname == "Condiments" %}
+                <img src="/static/imgbycat/Condiments.jpg" alt="Placeholder picture of the category.">
+                {% elif product.category.categoryname == "Confections" %}
+                <img src="/static/imgbycat/Confections.jpg" alt="Placeholder picture of the category.">
+                {% elif product.category.categoryname == "Dairy Products" %}
+                <img src="/static/imgbycat/Dairy.jpg" alt="Placeholder picture of the category.">
+                {% elif product.category.categoryname == "Grains/Cereals" %}
+                <img src="/static/imgbycat/Grains.jpg" alt="Placeholder picture of the category.">
+                {% elif product.category.categoryname == "Meat/Poultry" %}
+                <img src="/static/imgbycat/Meat.jpg" alt="Placeholder picture of the category.">
+                {% elif product.category.categoryname == "Produce" %}
+                <img src="/static/imgbycat/Produce.jpg" alt="Placeholder picture of the category.">
+                {% else %}
+                <img src="/static/imgbycat/Seafood.jpg" alt="Placeholder picture of the category.">
+                {% endif %}
+            </div>
         </div>
-    </div>
+    </a>
     <div class="row">
         <div class="col-md-7">
             {{ product.productname }}<br>
