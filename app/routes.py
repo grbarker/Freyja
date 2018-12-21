@@ -1,5 +1,6 @@
 ##Form code initially taken from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates
 ##then altered as necessary to fit the needs of the project
+import collections
 from flask import render_template, flash, redirect, url_for, request, session
 from sqlalchemy import asc, desc
 from werkzeug.urls import url_parse
@@ -10,6 +11,32 @@ from app.models import User, Post, Employee, Product
 from app.email import send_password_reset_email
 from app.forms import LoginForm, RegistrationForm, EmployeeRegistrationForm, \
     EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm, SortForm
+
+
+
+@app.route('/product/<id>', methods=['GET', 'POST'])
+def product(id):
+    product = Product.query.filter_by(id=id).first()
+    category = product.category
+    products = []
+    for od in product.orderdetails:
+        orders = od.order.customer.orders.all()
+        for o in orders:
+            orderdetails = o.orderdetails.all()
+            for od in orderdetails:
+                product = od.product
+                products.append(product)
+    counted_products = collections.Counter(products).most_common(8)
+    name = product.productname.capitalize()
+
+    ##Not going to paginate the products as of now. The products are the top
+    ##products also bought by people who ordered this product. The number has
+    ##been limited to 8 so there is no need for pagination yet. It may be
+    ##added later. Most likely there will just be a link to all the other
+    ##products ordered by the people.Eventually the same functionality will
+    ##be added for viewing a product.
+    return render_template('product.html', title=name, product=product, category=category,
+                           products=counted_products)
 
 
 @app.route('/products', methods=['GET', 'POST'])
