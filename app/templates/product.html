@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+<section class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <p>CATEGORY NAME: {{ category.categoryname }}</p>
+            <p>CATEGORY ID: {{ category.id }}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 centerimg">
+            {% if category.categoryname == "Beverages" %}
+                <img src="/static/imgdisplaycat/drinks_bottles.jpg" class="img-rounded" alt="Placeholder picture of the category1.">
+            {% elif category.categoryname == "Condiments" %}
+                <img src="/static/imgdisplaycat/condiment_icons.jpg" class="img-rounded" alt="Placeholder picture of the category2.">
+            {% elif category.categoryname == "Confections" %}
+                <img src="/static/imgdisplaycat/confections.jpg" class="img-rounded" alt="Placeholder picture of the category3.">
+            {% elif category.categoryname == "Dairy Products" %}
+                <img src="/static/imgdisplaycat/dairy.jpg" class="img-rounded" alt="Placeholder picture of the category4.">
+            {% elif category.categoryname == "Grains/Cereals" %}
+                <img src="/static/imgdisplaycat/grains.jpg" class="img-rounded" alt="Placeholder picture of the category5.">
+            {% elif category.categoryname == "Meat/Poultry" %}
+                <img src="/static/imgdisplaycat/meat.jpg" class="img-rounded" alt="Placeholder picture of the category6.">
+            {% elif category.categoryname == "Produce" %}
+                <img src="/static/imgdisplaycat/produce.jpg" class="img-rounded" alt="Placeholder picture of the category7.">
+            {% else %}
+                <img src="/static/imgdisplaycat/seafood.jpg" class="img-rounded" alt="Placeholder picture of the category8.">
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        {% for p in products %}
+            {% include '_other_product.html' %}
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
