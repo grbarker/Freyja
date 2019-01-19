@@ -35,6 +35,7 @@ class User(UserMixin, db.Model):
     country = db.Column(db.String(255), index=True)
     orders = db.relationship('Order', backref='customer', lazy='dynamic')
     posts = db.relationship('Post', backref='author', lazy='dynamic')
+    reviews = db.relationship('Review', backref='user', lazy='dynamic')
     ##Pulled from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-viii-followers
     followed = db.relationship(
         'User', secondary=followers,
@@ -188,7 +189,17 @@ class Product(db.Model):
     category_id = db.Column(db.Integer, db.ForeignKey('category.id'))
     unit = db.Column(db.Integer)
     price = db.Column(db.Numeric(scale=2, asdecimal=True))
+    created = db.Column(db.DateTime, default=datetime.utcnow)
     orderdetails = db.relationship('OrderDetail', backref='product', lazy='dynamic')
+    reviews = db.relationship('Review', backref='product', lazy='dynamic')
+
+
+    def get_rating(self):
+        ratings = []
+        for rev in self.reviews:
+            ratings.append(rev.rating)
+            return sum(ratings)/float(len(ratings))
+
 
 
 class Shipper(db.Model):
@@ -208,6 +219,19 @@ class Supplier(db.Model):
     country = db.Column(db.String(255), index=True)
     phone = db.Column(db.String(25), index=True)
     products = db.relationship('Product', backref='supplier', lazy='dynamic')
+
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    rating = db.Column(db.Integer, index=True)
+    review = db.Column(db.Text(1000))
+    comments = db.Column(db.Text(300))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    product_id= db.Column(db.Integer, db.ForeignKey('product.id'))
+
+    def top_rated(self):
+        r = Review.query.group_by(Review.product_id).order_by(func.avg()).all()
+        return r
 
 
 @login.user_loader
