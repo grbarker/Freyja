@@ -4,7 +4,7 @@
 <section class="container">
     <div class="row">
         <div class="col-md-12">
-            <h1>Check out the hottest cosmetics available!</h1>
+            <h1>All</h1>
         </div>
     </div>
     {% if form %}
@@ -27,9 +27,17 @@
     </div>
     {% endif %}
     <div class="row">
-        {% for product in products %}
-            {% include '_product.html' %}
-        {% endfor %}
+        <div class="col-md-12 thumb-container">
+            <div class="row thumbs-border">
+                {% for product in products %}
+                    {% if top_rated == True %}
+                        {% include '_productastabletoprated.html' %}
+                    {% else %}
+                        {% include '_productastable.html' %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-md-12">
