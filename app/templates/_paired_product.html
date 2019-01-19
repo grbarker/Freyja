@@ -1,0 +1,44 @@
+<div class="col-md-4 thumbheight thumb-border">
+    <a href="{{url_for('product', id=p[0].id)}}">
+        <div class="row">
+            <div class="col-md-12 centerimg">
+                {% if p[0].category.categoryname == "Beverages" %}
+                <img src="/static/imgbycat/Beverages.jpg" class="img-rounded" alt="Placeholder picture of the category.">
+                {% elif p[0].category.categoryname == "Condiments" %}
+                <img src="/static/imgbycat/Condiments.jpg" class="img-rounded" alt="Placeholder picture of the category.">
+                {% elif p[0].category.categoryname == "Confections" %}
+                <img src="/static/imgbycat/Confections.jpg" class="img-rounded" alt="Placeholder picture of the category.">
+                {% elif p[0].category.categoryname == "Dairy Products" %}
+                <img src="/static/imgbycat/Dairy.jpg" class="img-rounded" alt="Placeholder picture of the category.">
+                {% elif p[0].category.categoryname == "Grains/Cereals" %}
+                <img src="/static/imgbycat/Grains.jpg" class="img-rounded" alt="Placeholder picture of the category.">
+                {% elif p[0].category.categoryname == "Meat/Poultry" %}
+                <img src="/static/imgbycat/Meat.jpg" class="img-rounded" alt="Placeholder picture of the category.">
+                {% elif p[0].category.categoryname == "Produce" %}
+                <img src="/static/imgbycat/Produce.jpg" class="img-rounded" alt="Placeholder picture of the category.">
+                {% else %}
+                <img src="/static/imgbycat/Seafood.jpg" class="img-rounded" alt="Placeholder picture of the category.">
+                {% endif %}
+            </div>
+        </div>
+    </a>
+    <div class="row">
+        <div class="col-md-7">
+            {{ p[0].productname }}<br>
+            {% if p[0].supplier.suppliername %}
+            FROM {{ p[0].supplier.suppliername }}<br>
+            {{ p[0].category.categoryname }}<br>
+            {% endif %}
+        </div>
+        <div class="col-md-5">
+            {{ p[0].unit }}<br>
+            {{ p[0].price }}<br>
+            ID--->{{ p[0].id }}<br>
+            INDEX--->{{ pps.index(p) }}
+        </div>
+    </div>
+</div>
+<!-- This was done to achieve a grid system. It end and starts another row after every fourth item. -->
+{% if (pps.index(p) + 1) % 4 == 0 and pps.index(p) != 7 and pps.index(p) != 0 %}
+</div><div class="row thumbs-border margin">
+{% endif %}

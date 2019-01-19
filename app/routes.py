@@ -1,13 +1,16 @@
 ##Form code initially taken from https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-ii-templates
 ##then altered as necessary to fit the needs of the project
 import collections
+from sqlalchemy.sql import text
+from sqlalchemy import create_engine, desc, func
+from statistics import mean, median
 from flask import render_template, flash, redirect, url_for, request, session
 from sqlalchemy import asc, desc
 from werkzeug.urls import url_parse
 from datetime import datetime
 from flask_login import current_user, login_user, logout_user, login_required
 from app import app, db
-from app.models import User, Post, Employee, Product
+from app.models import User, Post, Employee, Product, Review
 from app.email import send_password_reset_email
 from app.forms import LoginForm, RegistrationForm, EmployeeRegistrationForm, \
     EditProfileForm, PostForm, ResetPasswordForm, ResetPasswordRequestForm, SortForm
@@ -16,9 +19,20 @@ from app.forms import LoginForm, RegistrationForm, EmployeeRegistrationForm, \
 
 @app.route('/product/<id>', methods=['GET', 'POST'])
 def product(id):
+    r = []
     product = Product.query.filter_by(id=id).first()
+    for review in product.reviews:
+        r.append(review.rating)
+    rating = round(mean(r), 1)
+    med = median(r)
+    name = product.productname.capitalize()
     category = product.category
+    #products is array of all the other products ordered by
+    #the poeple who ordered the specified product
     products = []
+    #The next array is the products bought together with the specified product
+    #paired_products-->pp
+    pps = []
     for od in product.orderdetails:
         orders = od.order.customer.orders.all()
         for o in orders:
@@ -26,8 +40,15 @@ def product(id):
             for od in orderdetails:
                 product = od.product
                 products.append(product)
-    counted_products = collections.Counter(products).most_common(8)
-    name = product.productname.capitalize()
+    counted_products = collections.Counter(products).most_common(6)
+    for od in product.orderdetails:
+        order = od.order
+        orderdetails = order.orderdetails.all()
+        for od in orderdetails:
+            p = od.product
+            if p.id != product.id:
+                pps.append(p)
+    counted_pps = collections.Counter(pps).most_common(6)
 
     ##Not going to paginate the products as of now. The products are the top
     ##products also bought by people who ordered this product. The number has
@@ -35,8 +56,9 @@ def product(id):
     ##added later. Most likely there will just be a link to all the other
     ##products ordered by the people.Eventually the same functionality will
     ##be added for viewing a product.
-    return render_template('product.html', title=name, product=product, category=category,
-                           products=counted_products)
+    return render_template('product.html', title=name, product=product, name=name,
+                           rating=rating, category=category, products=counted_products,
+                           pps=counted_pps, median=med)
 
 
 @app.route('/products', methods=['GET', 'POST'])
@@ -44,6 +66,7 @@ def products():
     form = SortForm()
     page = request.args.get('page', 1, type=int)
     sort = request.args.get('sort', 1, type=int)
+    top_rated = False
     ##The sort arg of the request url is taken and compared to the hardcoded choices to find the
     ##matching choice, which is then taken from its place and put at
     ##the front of the array. This is done becase the SelectField of the form defaults to showing
@@ -51,7 +74,7 @@ def products():
     ##applied sort to be showing so it didn't confuse the user by showing Featured when the products
     ##are actually sorted by Price: Low to High. This will need to be addressed again when the choices
     ##array is decided upon(i.e. static or dynamic). So far I only needed a static, hardcoded set to work with.
-    choices = [(1, 'Featured'), (2, 'Top Rated'), (3, 'Price: Low to High'), (4, 'Price: High to Low')]
+    choices = [(1, 'Featured'), (2, 'Top Rated'), (3, 'Price: Low to High'), (4, 'Price: High to Low'), (5, 'Newest')]
     for choice in choices:
         if sort == choice[0]:
             choices.remove(choice)
@@ -61,24 +84,34 @@ def products():
     if sort == 1:
         products = Product.query.paginate(page, 24, False)
     elif sort == 2:
-        products = Product.query.paginate(page, 24, False)
+        top_rated = True
+        rs = Review.query.\
+            with_entities(
+                func.avg(Review.rating).label('average'),
+                Review.product_id.label('product_id')).\
+            group_by(Review.product_id).subquery()
+        products = db.session.query(Product, rs).\
+            join(rs, Product.id == rs.c.product_id).\
+            order_by(desc(rs.c.average)).paginate(page, 24, False)
     elif sort == 3:
         products = Product.query.order_by(asc(Product.price)).paginate(page, 24, False)
     elif sort == 4:
         products = Product.query.order_by(desc(Product.price)).paginate(page, 24, False)
+    elif sort == 5:
+        products = Product.query.order_by(desc(Product.created)).paginate(page, 24, False)
     next_url = url_for('products', page=products.next_num, sort=sort) \
         if products.has_next else None
     prev_url = url_for('products', page=products.prev_num, sort=sort) \
         if products.has_prev else None
     if form.validate_on_submit():
         page = request.args.get('page', 1, type=int)
-        flash('Page: ' + str(page))
-        flash('Sort: ' + str(form.sort_type.data))
+        #flash('Page: ' + str(page))
+        #flash('Sort: ' + str(form.sort_type.data))
         sort = form.sort_type.data
         return redirect(url_for('products', sort=sort))
     return render_template('products.html', title='Products',
                            products=products.items, next_url=next_url,
-                           prev_url=prev_url, form=form)
+                           prev_url=prev_url, form=form, top_rated=top_rated)
 
 
 @app.route('/', methods=['GET', 'POST'])
