@@ -1,42 +1,45 @@
-<div class="col-md-3">
+
+{% if (products.index(product) + 1) % 3 == 0 and products.index(product) != 23 and products.index(product) != 0 %}
+<div class="col-md-4 thumbheight thumb-end">
+{% else %}
+<div class="col-md-4 thumbheight thumb">
+{% endif %}
     <a href="{{url_for('product', id=product.id)}}">
         <div class="row">
-            <div class="col-md-12 centerimg">
+            <div class="col-md-12">
                 {% if product.category.categoryname == "Beverages" %}
-                <img src="/static/imgbycat/Beverages.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Beverages300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of beverages.">
                 {% elif product.category.categoryname == "Condiments" %}
-                <img src="/static/imgbycat/Condiments.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Condiments300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of condiments.">
                 {% elif product.category.categoryname == "Confections" %}
-                <img src="/static/imgbycat/Confections.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Confections300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of condfections.">
                 {% elif product.category.categoryname == "Dairy Products" %}
-                <img src="/static/imgbycat/Dairy.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Dairy300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of dairy.">
                 {% elif product.category.categoryname == "Grains/Cereals" %}
-                <img src="/static/imgbycat/Grains.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Grains300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of grains.">
                 {% elif product.category.categoryname == "Meat/Poultry" %}
-                <img src="/static/imgbycat/Meat.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Meat300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of meat.">
                 {% elif product.category.categoryname == "Produce" %}
-                <img src="/static/imgbycat/Produce.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Produce300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of produce.">
                 {% else %}
-                <img src="/static/imgbycat/Seafood.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Seafood300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of seafood.">
                 {% endif %}
             </div>
         </div>
     </a>
     <div class="row">
-        <div class="col-md-7">
-            {{ product.productname }}<br>
-            FROM {{ product.supplier.suppliername }}<br>
-            {{ product.category.categoryname }}<br>
+        <div class="col-md-8">
+            <p>{{product.productname}}</p>
+            <p>{{product.supplier.suppliername}}</p>
+            <p>{{product.category.categoryname}}</p>
         </div>
-        <div class="col-md-5">
-            {{ product.unit }}<br>
-            {{ product.price }}<br>
-            ID--->{{ product.id }}<br>
-            INDEX--->{{ products.index(product) }}
+        <div class="col-md-4 right">
+            <p>{{product.unit}}</p>
+            <p>{{product.price}}</p>
         </div>
     </div>
 </div>
 <!-- This was done to achieve a grid system. It end and starts another row after every fourth item. -->
-{% if (products.index(product) + 1) % 4 == 0 and products.index(product) != 23 and products.index(product) != 0 %}
-</div><div class="row">
+{% if (products.index(product) + 1) % 3 == 0 and products.index(product) != 23 and products.index(product) != 0 %}
+</div><div class="row thumbs-border">
 {% endif %}

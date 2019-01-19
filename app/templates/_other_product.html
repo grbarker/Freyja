@@ -1,23 +1,23 @@
-<div class="col-md-3">
+<div class="col-md-4 thumbheight thumb-border">
     <a href="{{url_for('product', id=p[0].id)}}">
         <div class="row">
             <div class="col-md-12 centerimg">
                 {% if p[0].category.categoryname == "Beverages" %}
-                <img src="/static/imgbycat/Beverages.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Beverages.jpg" class="img-rounded" alt="Placeholder picture of the category.">
                 {% elif p[0].category.categoryname == "Condiments" %}
-                <img src="/static/imgbycat/Condiments.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Condiments.jpg" class="img-rounded" alt="Placeholder picture of the category.">
                 {% elif p[0].category.categoryname == "Confections" %}
-                <img src="/static/imgbycat/Confections.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Confections.jpg" class="img-rounded" alt="Placeholder picture of the category.">
                 {% elif p[0].category.categoryname == "Dairy Products" %}
-                <img src="/static/imgbycat/Dairy.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Dairy.jpg" class="img-rounded" alt="Placeholder picture of the category.">
                 {% elif p[0].category.categoryname == "Grains/Cereals" %}
-                <img src="/static/imgbycat/Grains.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Grains.jpg" class="img-rounded" alt="Placeholder picture of the category.">
                 {% elif p[0].category.categoryname == "Meat/Poultry" %}
-                <img src="/static/imgbycat/Meat.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Meat.jpg" class="img-rounded" alt="Placeholder picture of the category.">
                 {% elif p[0].category.categoryname == "Produce" %}
-                <img src="/static/imgbycat/Produce.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Produce.jpg" class="img-rounded" alt="Placeholder picture of the category.">
                 {% else %}
-                <img src="/static/imgbycat/Seafood.jpg" alt="Placeholder picture of the category.">
+                <img src="/static/imgbycat/Seafood.jpg" class="img-rounded" alt="Placeholder picture of the category.">
                 {% endif %}
             </div>
         </div>
@@ -39,6 +39,6 @@
     </div>
 </div>
 <!-- This was done to achieve a grid system. It end and starts another row after every fourth item. -->
-{% if (products.index(p) + 1) % 4 == 0 and products.index(p) != 7 and products.index(p) != 0 %}
-</div><div class="row">
+{% if (products.index(p) + 1) % 3 == 0 and products.index(p) != 5 and products.index(p) != 0 %}
+</div><div class="row thumbs-border margin">
 {% endif %}
