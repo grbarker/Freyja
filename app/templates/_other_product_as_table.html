@@ -1,0 +1,44 @@
+{% if (products.index(p) + 1) % 3 == 0 and products.index(p) != 0 %}
+<div class="col-md-4 thumbheight thumb-end">
+{% else %}
+<div class="col-md-4 thumbheight thumb">
+{% endif %}
+    <table class="table">
+        <tr>
+            <a href="{{url_for('product', id=product.id)}}">
+                {% if p[0].category.categoryname == "Beverages" %}
+                <img src="/static/imgbycat/Beverages300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of beverages.">
+                {% elif p[0].category.categoryname == "Condiments" %}
+                <img src="/static/imgbycat/Condiments300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of condiments.">
+                {% elif p[0].category.categoryname == "Confections" %}
+                <img src="/static/imgbycat/Confections300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of condfections.">
+                {% elif p[0].category.categoryname == "Dairy Products" %}
+                <img src="/static/imgbycat/Dairy300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of dairy.">
+                {% elif p[0].category.categoryname == "Grains/Cereals" %}
+                <img src="/static/imgbycat/Grains300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of grains.">
+                {% elif p[0].category.categoryname == "Meat/Poultry" %}
+                <img src="/static/imgbycat/Meat300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of meat.">
+                {% elif p[0].category.categoryname == "Produce" %}
+                <img src="/static/imgbycat/Produce300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of produce.">
+                {% else %}
+                <img src="/static/imgbycat/Seafood300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of seafood.">
+                {% endif %}
+            </a>
+        </tr>
+        <tr>
+            <td><p>{{p.productname}}</p></td>
+            <td id="td1"><p>{{p.unit}}</p></td>
+        </tr>
+        <tr>
+            <td><p>{{p[0].supplier.suppliername}}</p></td>
+            <td id="td2"><p>{{p.price}}</p></td>
+        </tr>
+        <tr>
+            <td><p>{{p[0].category.categoryname}}</p></td>
+        </tr>
+    </table>
+</div>
+<!-- This was done to achieve a grid system. It end and starts another row after every fourth item. -->
+{% if (products.index(p) + 1) % 3 == 0 and products.index(p) != 5 and products.index(p) != 0 %}
+</div><div class="row thumbs-border">
+{% endif %}
