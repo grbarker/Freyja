@@ -2,37 +2,113 @@
 
 {% block app_content %}
 <section class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <p>CATEGORY NAME: {{ category.categoryname }}</p>
-            <p>CATEGORY ID: {{ category.id }}</p>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 centerimg">
+    <div class="row product">
+        <div class="col-md-8 centerimg">
             {% if category.categoryname == "Beverages" %}
-                <img src="/static/imgdisplaycat/drinks_bottles.jpg" class="img-rounded" alt="Placeholder picture of the category1.">
+                <img src="/static/imgdisplaycat/drinks_bottles.jpg" class="img-rounded img-margin" alt="Placeholder picture of the category1.">
             {% elif category.categoryname == "Condiments" %}
-                <img src="/static/imgdisplaycat/condiment_icons.jpg" class="img-rounded" alt="Placeholder picture of the category2.">
+                <img src="/static/imgdisplaycat/condiment_icons.jpg" class="img-rounded img-margin" alt="Placeholder picture of the category2.">
             {% elif category.categoryname == "Confections" %}
-                <img src="/static/imgdisplaycat/confections.jpg" class="img-rounded" alt="Placeholder picture of the category3.">
+                <img src="/static/imgdisplaycat/confections.jpg" class="img-rounded img-margin" alt="Placeholder picture of the category3.">
             {% elif category.categoryname == "Dairy Products" %}
-                <img src="/static/imgdisplaycat/dairy.jpg" class="img-rounded" alt="Placeholder picture of the category4.">
+                <img src="/static/imgdisplaycat/dairy.jpg" class="img-rounded img-margin" alt="Placeholder picture of the category4.">
             {% elif category.categoryname == "Grains/Cereals" %}
-                <img src="/static/imgdisplaycat/grains.jpg" class="img-rounded" alt="Placeholder picture of the category5.">
+                <img src="/static/imgdisplaycat/grains.jpg" class="img-rounded img-margin" alt="Placeholder picture of the category5.">
             {% elif category.categoryname == "Meat/Poultry" %}
-                <img src="/static/imgdisplaycat/meat.jpg" class="img-rounded" alt="Placeholder picture of the category6.">
+                <img src="/static/imgdisplaycat/meat.jpg" class="img-rounded img-margin" alt="Placeholder picture of the category6.">
             {% elif category.categoryname == "Produce" %}
-                <img src="/static/imgdisplaycat/produce.jpg" class="img-rounded" alt="Placeholder picture of the category7.">
+                <img src="/static/imgdisplaycat/produce.jpg" class="img-rounded img-margin" alt="Placeholder picture of the category7.">
             {% else %}
-                <img src="/static/imgdisplaycat/seafood.jpg" class="img-rounded" alt="Placeholder picture of the category8.">
+                <img src="/static/imgdisplaycat/seafood.jpg" class="img-rounded img-margin" alt="Placeholder picture of the category8.">
             {% endif %}
         </div>
+        <div class="col-md-4">
+            <div class="row">
+                <div class="col-md-12">
+                    <h2>{{ name }}</h2>
+                    <h3>{{ product.supplier.suppliername }}</h3>
+                    <h4>{{ product.unit }}</h4>
+                    <h4>{{ product.price }}</h4>
+                    <h5>{{ rating }}</h5>
+                    {% if rating >= 1 and rating < 2 %}
+                        <span style="color: Gold;">
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                    {% elif rating >= 2 and rating < 3 %}
+                        <span style="color: Gold;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                    {% elif rating >= 3 and rating < 4 %}
+                        <span style="color: Gold;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                    {% elif rating >= 4 and rating < 5 %}
+                        <span style="color: Gold;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                    {% elif rating == 5 %}
+                        <span style="color: Gold;">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </span>
+                    {% else %}
+                        <span style="color: Gold;">
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                            <i class="far fa-star"></i>
+                        </span>
+                    {% endif %}
+                    <p>Category: {{ category.categoryname }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row thumbs-header-border">
+        <h2>Other products ordered by users</h2>
     </div>
     <div class="row">
-        {% for p in products %}
-            {% include '_other_product.html' %}
-        {% endfor %}
+        <div class="col-md-12 thumb-container">
+            <div class="row thumbs-border">
+                {% for p in products %}
+                    {% include '_other_product_as_table.html' %}
+                {% endfor %}
+            </div>
+        </div>
     </div>
+    <div class="row thumbs-header-border">
+        <h2>Products ordered alongside {{name}}</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-12 thumb-container">
+            <div class="row thumbs-border">
+                {% for p in pps %}
+                    {% include '_paired_product_as_table.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
 </section>
 {% endblock %}
