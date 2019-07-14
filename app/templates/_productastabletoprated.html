@@ -5,7 +5,7 @@
 {% endif %}
     <table class="table">
         <tr>
-            <a href="{{url_for('main.product', id=product.id)}}">
+            <a href="{{url_for('main.product', id=product[0].id)}}">
                 {% if product[0].category.categoryname == "Beverages" %}
                 <img src="/static/imgbycat/Beverages300.jpg" class="img-rounded centerimg img-responsive" alt="Placeholder picture of beverages.">
                 {% elif product[0].category.categoryname == "Condiments" %}
